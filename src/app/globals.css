@@ -2,20 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+	@layer base {
+		:root {
+			--background: 75 11% 93%;
+			--foreground: 0 0% 32%;
+			--card: 75 11% 93%;
+			--card-foreground: 0 0% 32%;
+			--popover: 75 11% 93%;
+			--popover-foreground: 0 0% 32%;
+			--primary: 77 100% 48%;
+			--primary-foreground: 0 0% 32%;
+			--secondary: 138 13% 66%;
+			--secondary-foreground: 75 11% 93%;
+			--muted: 75 12% 20%;
+			--muted-foreground: 0 0% 70%;
+			--accent: 159 13% 48%;
+			--accent-foreground: 75 11% 93%;
+			--destructive: 0 85% 60%;
+			--destructive-foreground: 0 0% 32%;
+			--border: 75 12% 20%;
+			--input: 75 12% 20%;
+			--ring: 159 13% 40%;
+			--radius: 0.5rem;
+		}
+
+		.dark {
+			--background: 75 11% 7%;
+			--foreground: 0 0% 68%;
+			--card: 75 11% 7%;
+			--card-foreground: 0 0% 68%;
+			--popover: 75 11% 7%;
+			--popover-foreground: 0 0% 68%;
+			--primary: 77 100% 52%;
+			--primary-foreground: 75 11% 7%;
+			--secondary: 138 13% 34%;
+			--secondary-foreground: 75 11% 7%;
+			--muted: 75 12% 80%;
+			--muted-foreground: 0 0% 68%;
+			--accent: 158 13% 52%;
+			--accent-foreground: 75 11% 7%;
+			--destructive: 0 62% 30%;
+			--destructive-foreground: 0 0% 10%;
+			--border: 74 11% 60%;
+			--input: 75 12% 80%;
+			--ring: 159 13% 60%;
+		}
+	}
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+	* {
+		@apply border-border;
+	}
+	body {
+		@apply bg-background text-foreground;
+		transition: background-color 0.5s;
+	}
 }
