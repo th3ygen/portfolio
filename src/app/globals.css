@@ -59,4 +59,11 @@
 		@apply bg-background text-foreground;
 		transition: background-color 0.5s;
 	}
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+	.no-scrollbar {
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+	}
 }

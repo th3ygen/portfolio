@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Black_Ops_One } from "next/font/google";
 import {
@@ -5,6 +7,7 @@ import {
 	RiReactjsLine,
 	RiJavascriptLine,
 	RiNodejsLine,
+	RiExternalLinkLine,
 } from "react-icons/ri";
 import {
 	TbBrandTypescript,
@@ -14,6 +17,7 @@ import {
 import { DiPostgresql } from "react-icons/di";
 import Link from "next/link";
 import EnterTransition from "@/components/motion/EnterTransition";
+import { useGlobalStore } from "@/stores/useGlobalStore";
 
 const blackOps = Black_Ops_One({ weight: "400" });
 
@@ -77,11 +81,13 @@ const tools: Record<"frontend" | "backend", Tool[]> = {
 };
 
 export default function AboutMe({ className = "" }: AboutMeProps) {
+	const { setIsViewingStack } = useGlobalStore();
+
 	return (
 		<div className={className}>
 			<div className="pb-10">
 				<EnterTransition once>
-					<h2 className="text-5xl font-extrabold mb-6 uppercase">
+					<h1 className="text-5xl font-extrabold mb-6 uppercase dark:text-white">
 						Meet the{" "}
 						<span
 							className={cn(
@@ -91,12 +97,12 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
 						>
 							DEV
 						</span>
-					</h2>
+					</h1>
 				</EnterTransition>
 				<EnterTransition className="delay-100" once>
 					<p className="text-justify leading-7">
-						Hi, I’m a <b>Full-Stack Web Developer</b> with over 4
-						years of experience turning ideas into powerful web
+						Hi, I’m a <b>Full-Stack Developer</b> with over 5 years
+						of experience turning ideas into powerful web
 						applications. I specialize in building fast,
 						user-focused solutions using Next.js, React, TypeScript,
 						and Node.js. Whether it’s{" "}
@@ -111,7 +117,7 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
 			<div className="flex flex-col gap-10 w-fit">
 				<EnterTransition className="delay-200" once>
 					Fueled by <span>coffee ☕</span> and powered by a strong
-					CPU, here’s my developer toolkit:
+					CPU, here’s my toolkit:
 				</EnterTransition>
 
 				<EnterTransition
@@ -146,6 +152,18 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
 								</Link>
 							</div>
 						))}
+					</div>
+
+					<div className="col-span-2">
+						<div
+							className="arsenal-toggle underline text-accent flex items-center gap-2 cursor-pointer"
+							onClick={() => {
+								setIsViewingStack(true);
+							}}
+						>
+							<div>Unveil my full arsenal</div>
+							<RiExternalLinkLine />
+						</div>
 					</div>
 				</EnterTransition>
 			</div>

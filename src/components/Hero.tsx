@@ -47,7 +47,7 @@ const Pillar: React.FC<{ className?: string }> = ({ className = "" }) => {
 	const ref = useRef<HTMLDivElement>(null);
 	const isInView = useInView(ref);
 
-	const y = useMotionValue(0.75);
+	const y = useMotionValue(1.1);
 	const { scrollY } = useScroll();
 	const scrollVelocity = useVelocity(scrollY);
 	const smoothScroll = useSpring(scrollVelocity, {
@@ -55,7 +55,7 @@ const Pillar: React.FC<{ className?: string }> = ({ className = "" }) => {
 		stiffness: 100,
 		mass: 15,
 	});
-	const scrollTransform = useTransform(smoothScroll, [-5000, 5000], [0.1, 2]);
+	const scrollTransform = useTransform(smoothScroll, [-8000, 8000], [0.2, 2]);
 
 	useMotionValueEvent(scrollTransform, "change", (value) => {
 		y.set(value);
@@ -98,7 +98,7 @@ export default function Hero() {
 	const [expYears, setExpYears] = useState(0);
 
 	useEffect(() => {
-		const start = new Date("2020-06-01");
+		const start = new Date("2019-08-01");
 		const now = new Date();
 
 		const diff = now.getTime() - start.getTime();
@@ -116,17 +116,17 @@ export default function Hero() {
 					Hello world! I{"'"}m...
 				</div>
 			</BoxReveal>
-			<BoxReveal delay="delay-75">
+			<BoxReveal delay="delay-100">
 				<div className="text-7xl font-bold text-primary drop-shadow-[0_0px_.5px_rgba(0,0,0,1)] hover:scale-125 duration-300">
 					MUHD. AIDIL{" "}
 				</div>
 			</BoxReveal>
-			<BoxReveal delay="delay-75">
+			<BoxReveal delay="delay-300">
 				<span className="text-7xl font-bold [letter-spacing:12.7px]">
 					SYAZWAN
 				</span>
 			</BoxReveal>
-			<BoxReveal className="mt-2">
+			<BoxReveal className="mt-2" delay="delay-500">
 				<div className="text-lg [letter-spacing:.2px]">
 					<span className="">or you could call me </span>
 					<span className="font-bold text-primary bg-black dark:bg-primary dark:text-black px-1 rounded">
@@ -140,12 +140,12 @@ export default function Hero() {
 			<BoxReveal className="mt-8 flex flex-col">
 				<div className="text-2xl text-accent font-bold">Sofware Engineer</div>
 				<div className="italic">
-					with {expYears}+ of experiences
+					with {expYears}+ years of experience
 				</div>
 			</BoxReveal>
 
 			<BoxReveal className="mt-8">
-				<Button className="z-10" variant="outline" size="lg">
+				<Button variant="outline" size="lg">
 					{"Let's"} work together!
 				</Button>
 			</BoxReveal>

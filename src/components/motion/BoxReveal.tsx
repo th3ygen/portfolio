@@ -34,7 +34,7 @@ export default function BoxReveal({
 	return (
 		<div
 			className={cn(
-				"relative flex w-fit delay transform translate-y-10 duration-500 opacity-0",
+				"relative flex w-fit delay transform duration-500",
 				delay,
 				className,
 				isMounted && isInView && "translate-y-0 opacity-100"

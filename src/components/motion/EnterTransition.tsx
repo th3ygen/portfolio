@@ -24,7 +24,7 @@ export default function EnterTransition({
 		<div
 			ref={ref}
 			className={cn(
-				"opacity-0 translate-y-5 duration-500",
+				"opacity-0 translate-y-5 duration-700 [transition-timing-function:cubic-bezier(0.785,0.135,0.150,0.860)]",
 				className,
 				isInView && "opacity-100 translate-y-0"
 			)}

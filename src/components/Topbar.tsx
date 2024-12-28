@@ -85,7 +85,7 @@ const VerticalNav = ({ show }: { show: boolean }) => {
 	);
 };
 
-const Topbar: React.FC = ({ hideTreshold = 700 }: TopbarProps) => {
+const Topbar: React.FC = ({ hideTreshold = 800 }: TopbarProps) => {
 	const { scrollY } = useScroll();
 	const [isHidden, setIsHidden] = useState(false);
 
