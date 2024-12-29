@@ -49,7 +49,7 @@ export default function RootLayout({
 							</section>
 							<section
 								id="projects"
-								className="min-h-[100vh] pt-32 mr-40"
+								className="min-h-[100vh] pt-10 mr-40"
 							>
 								{projects}
 							</section>
