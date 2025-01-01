@@ -28,6 +28,12 @@ import {
 	useTransform,
 } from "motion/react";
 import { cubicBezier } from "motion";
+import { FaMedal } from "react-icons/fa";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export type ProjectShowcase = {
 	image: string;
@@ -80,13 +86,13 @@ export const tagsOrder: ProjectTagName[] = [
 	"award",
 	"pnc",
 	"pub",
+	"ai_ml",
 	"internal",
 	"research",
 	"iot",
-	"ai_ml",
-	"payment_gateway",
-	"geospatial",
 	"real_time",
+	"geospatial",
+	"payment_gateway",
 	"automation",
 	"compliance",
 	"collaborative",
@@ -100,115 +106,115 @@ export const tagsOrder: ProjectTagName[] = [
 export const projectTags: Record<string, ProjectTag> = {
 	pnc: {
 		name: "Classified",
-		color: "border-red-500",
-		icon: <RiLock2Line size={14} />,
+		color: "text-red-500",
+		icon: <RiLock2Line size={18} />,
 		tooltip: "Private & Confidential",
 	},
 	pub: {
 		name: "Global",
-		color: "border-green-500",
-		icon: <CiGlobe size={14} />,
+		color: "text-green-500",
+		icon: <CiGlobe size={18} />,
 		tooltip: "This project is publicly accessible",
 	},
 	internal: {
 		name: "In-House",
-		color: "border-yellow-500",
-		icon: <MdBusiness size={14} />,
+		color: "text-yellow-500",
+		icon: <MdBusiness size={18} />,
 		tooltip: "Used internally within an organization or company",
 	},
 	research: {
 		name: "Research",
-		color: "border-blue-500",
-		icon: <MdScience size={14} />,
+		color: "text-blue-500",
+		icon: <MdScience size={18} />,
 		tooltip: "Projects related to research and academic exploration",
 	},
 	iot: {
 		name: "IoT",
-		color: "border-indigo-500",
-		icon: <IoCloud size={14} />,
+		color: "text-indigo-500",
+		icon: <IoCloud size={18} />,
 		tooltip: "Projects involving Internet of Things (IoT) technologies",
 	},
 	ai_ml: {
 		name: "AI/ML",
-		color: "border-purple-500",
-		icon: <FaBrain size={14} />,
+		color: "text-purple-500",
+		icon: <FaBrain size={18} />,
 		tooltip:
 			"Projects utilizing Artificial Intelligence or Machine Learning",
 	},
 	geospatial: {
 		name: "Geo-Enabled",
-		color: "border-teal-500",
-		icon: <FaMapMarkedAlt size={14} />,
+		color: "text-teal-500",
+		icon: <FaMapMarkedAlt size={18} />,
 		tooltip: "Projects with geospatial or map-based features",
 	},
 	real_time: {
 		name: "Real-time",
-		color: "border-orange-500",
-		icon: <MdTimer size={14} />,
+		color: "text-orange-500",
+		icon: <MdTimer size={18} />,
 		tooltip:
 			"Projects featuring real-time data processing and visualization",
 	},
 	automation: {
 		name: "Automation",
-		color: "border-pink-500",
-		icon: <MdOutlineAutorenew size={14} />,
+		color: "text-pink-500",
+		icon: <MdOutlineAutorenew size={18} />,
 		tooltip: "Projects with automated workflows or processes",
 	},
 	compliance: {
 		name: "Compliance",
-		color: "border-cyan-500",
-		icon: <FaShieldAlt size={14} />,
+		color: "text-cyan-500",
+		icon: <FaShieldAlt size={18} />,
 		tooltip: "Focused on regulatory or safety compliance",
 	},
 	award: {
 		name: "Award-Winning",
-		color: "border-yellow-600",
-		icon: <FaAward size={14} />,
+		color: "text-yellow-600",
+		icon: <FaAward size={18} />,
 		tooltip: "This project has received awards or recognition",
 	},
 	collaborative: {
 		name: "Collab",
-		color: "border-gray-600",
-		icon: <HiOutlineUserGroup size={14} />,
+		color: "text-gray-600",
+		icon: <HiOutlineUserGroup size={18} />,
 		tooltip: "Developed in collaboration with other teams or organizations",
 	},
 	prototype: {
 		name: "Prototype",
-		color: "border-violet-400",
-		icon: <MdBuild size={14} />,
+		color: "text-violet-400",
+		icon: <MdBuild size={18} />,
 		tooltip: "A proof-of-concept or experimental project",
 	},
 	payment_gateway: {
 		name: "Payments",
-		color: "border-green-600",
-		icon: <FaCreditCard size={14} />,
+		color: "text-green-600",
+		icon: <FaCreditCard size={18} />,
 		tooltip:
 			"Projects with integrated payment gateways for online transactions",
 	},
 	seo: {
 		name: "SEO",
-		color: "border-yellow-500",
-		icon: <FaSearch size={14} />,
+		color: "text-yellow-500",
+		icon: <FaSearch size={18} />,
 		tooltip:
 			"Projects with built-in SEO optimizations for better search rankings",
 	},
 	cms: {
 		name: "CMS",
-		color: "border-teal-500",
-		icon: <FaCog size={14} />,
+		color: "text-teal-500",
+		icon: <FaCog size={18} />,
 		tooltip:
 			"Static site integrated with a Content Management System (CMS)",
 	},
 	no_backend: {
 		name: "No-Backend",
-		color: "border-red-700",
-		icon: <MdDeleteForever size={14} />,
+		color: "text-red-700",
+		icon: <MdDeleteForever size={18} />,
 		tooltip: "Site without any server-side logic, purely static",
 	},
 	static: {
 		name: "Static",
-		color: "border-blue-400",
-		icon: <FaFileCode size={14} />,
+		color: "text-blue-400",
+		icon: <FaFileCode size={18} />,
 		tooltip: "A static site with pre-rendered content",
 	},
 };
@@ -221,7 +227,7 @@ export default function ProjectCard({
 
 	const { scrollY } = useScroll();
 	const proximity = useMotionValue(0);
-	
+
 	useMotionValueEvent(scrollY, "change", () => {
 		const y = ref.current?.getBoundingClientRect().top;
 		const diff =
@@ -235,6 +241,30 @@ export default function ProjectCard({
 		clamp: true,
 	});
 
+	const placeTags = () => {
+		return tagsOrder.map((tagId) => {
+			if (!project.tags!.includes(tagId)) return null;
+
+			const tag = projectTags[tagId];
+			return (
+				<Tooltip key={project.title + "-tag-" + tag.name} delayDuration={0}>
+					<TooltipTrigger>
+						<Badge
+							className={cn(
+								"bg-transparent border-accent p-[6px]",
+								tag.color
+							)}
+							variant="outline"
+						>
+							{tag.icon}
+						</Badge>
+					</TooltipTrigger>
+					<TooltipContent className="bg-accent">{tag.tooltip}</TooltipContent>
+				</Tooltip>
+			);
+		});
+	};
+
 	return (
 		<motion.div
 			ref={ref}
@@ -245,17 +275,12 @@ export default function ProjectCard({
 			style={{ scale }}
 		>
 			<div className="relative w-full h-full grid grid-cols-3">
+				{project.tags && project.tags.includes("award") && (
+					<div className="absolute top-0 right-0">
+						<FaMedal className="text-4xl text-yellow-400" />
+					</div>
+				)}
 				<div className="relative col-span-1">
-					{/* <div className="absolute top-[-30%] h-[150%] group-hover:top-0 group-hover:h-[100%] left-0 w-full  flex flex-col justify-between items-center z-[11] duration-300">
-						<div className="dark:text-white font-bold p-2">
-							{project.longTitle}
-						</div>
-						<div className="p-4">
-							<Button variant="outline" className="rounded-none">
-								View details
-							</Button>
-						</div>
-					</div> */}
 					<div className="absolute top-0 left-0 flex justify-center items-center w-full h-full z-10 bg-secondary/20 group-hover:bg-secondary/10 duration-300"></div>
 					<div className="absolute top-0 left-0 w-full h-full flex flex-col">
 						<div className="relative w-full h-full overflow-hidden">
@@ -283,29 +308,7 @@ export default function ProjectCard({
 					</div>
 					<div className="flex gap-2 items-end justify-between pt-6">
 						<div className="flex gap-2 flex-wrap">
-							{project.tags &&
-								tagsOrder.map((tagId) => {
-									if (!project.tags!.includes(tagId))
-										return null;
-
-									const tag = projectTags[tagId];
-									return (
-										<Badge
-											key={
-												project.title +
-												"-tag-" +
-												tag.name
-											}
-											className={cn(
-												"text-xs bg-transparent text-accent",
-												tag.color
-											)}
-											variant="outline"
-										>
-											{tag.name}
-										</Badge>
-									);
-								})}
+							{project.tags && placeTags()}
 						</div>
 						<div>
 							<Button>View details</Button>

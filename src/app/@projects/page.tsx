@@ -3,6 +3,8 @@
 import EnterTransition from "@/components/motion/EnterTransition";
 import type { Project } from "./components/ProjectCard";
 import ProjectCard from "./components/ProjectCard";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import ProjectDetails from "./components/ProjectDetails";
 
 const projects = [
 	{
@@ -229,7 +231,6 @@ const projects = [
 	},
 ] satisfies Project[];
 
-
 export default function Projects() {
 	return (
 		<div className="relative w-full h-fit pb-20">
@@ -249,13 +250,15 @@ export default function Projects() {
 					solutions.
 				</p>
 			</EnterTransition>
-			<div className="grid grid-cols-1 gap-2">
-				{projects.map((project, index) => (
-					<EnterTransition once key={"project-" + index}>
-						<ProjectCard project={project} />
-					</EnterTransition>
-				))}
-			</div>
+			<TooltipProvider>
+				<div className="grid grid-cols-1 gap-2">
+					{projects.map((project, index) => (
+						<EnterTransition once key={"project-" + index}>
+							<ProjectCard project={project} />
+						</EnterTransition>
+					))}
+				</div>
+			</TooltipProvider>
 			<EnterTransition
 				className="absolute bottom-0 left-0 w-full flex justify-center delay-300"
 				once
@@ -267,6 +270,7 @@ export default function Projects() {
 					I tackled!
 				</span>
 			</EnterTransition>
+			<ProjectDetails />
 		</div>
 	);
 }
