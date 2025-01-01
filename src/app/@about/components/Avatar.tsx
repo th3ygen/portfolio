@@ -381,7 +381,9 @@ type AvatarProps = {
 export default function Avatar({ className = "" }: AvatarProps) {
 	const ref = useRef<HTMLDivElement>(null);
 	const hiddenRef = useRef<HTMLDivElement>(null);
-	const isInView = useInView(ref);
+	const isInView = useInView(ref, {
+		once: true
+	});
 	const hasFinishedScrolling = useInView(hiddenRef);
 	const [isLoaded, setIsLoaded] = useState(false);
 	const { isViewingStack, setIsViewingStack } = useGlobalStore();

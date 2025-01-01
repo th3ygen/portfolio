@@ -43,19 +43,19 @@ export default function RootLayout({
 							</section>
 							<section
 								id="experiences"
-								className="min-h-[100vh] pt-32 mr-40"
+								className="pt-32 mr-52"
 							>
 								{experiences}
 							</section>
 							<section
 								id="projects"
-								className="min-h-[100vh] pt-10 mr-40"
+								className="pt-32 mr-52 h-fit"
 							>
 								{projects}
 							</section>
 							<section
 								id="contact"
-								className="min-h-[100vh] pt-32 mr-40"
+								className="pt-32 mr-52"
 							>
 								{contact}
 							</section>

@@ -55,7 +55,7 @@ const Pillar: React.FC<{ className?: string }> = ({ className = "" }) => {
 		stiffness: 100,
 		mass: 15,
 	});
-	const scrollTransform = useTransform(smoothScroll, [-8000, 8000], [0.2, 2]);
+	const scrollTransform = useTransform(smoothScroll, [-20000, 20000], [0.2, 2]);
 
 	useMotionValueEvent(scrollTransform, "change", (value) => {
 		y.set(value);
@@ -138,14 +138,14 @@ export default function Hero() {
 			</BoxReveal>
 
 			<BoxReveal className="mt-8 flex flex-col">
-				<div className="text-2xl text-accent font-bold">Sofware Engineer</div>
+				<div className="text-2xl text-accent font-bold">Full-stack Developer</div>
 				<div className="italic">
 					with {expYears}+ years of experience
 				</div>
 			</BoxReveal>
 
 			<BoxReveal className="mt-8">
-				<Button variant="outline" size="lg">
+				<Button variant="outline" size="lg" className="bg-secondary/20">
 					{"Let's"} work together!
 				</Button>
 			</BoxReveal>

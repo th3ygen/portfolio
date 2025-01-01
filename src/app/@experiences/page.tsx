@@ -12,16 +12,12 @@ const career = [
 		banner: "/assets/ascenity-banner.png",
 		logo: "/assets/ascenity-logo.png",
 		bullets: [
-			"Delivered 8 software solutions with an 80% success rate and high client satisfaction.",
-			"Built CAM Kenderaan, a secure vehicle telemetry system with CAN bus, GPS, IMU sensors, and SHA256 for Cyber Security Malaysia.",
+			"Developed CAM Kenderaan, a secure vehicle telemetry system with CAN bus, GPS, IMU sensors, and SHA256 for Cyber Security Malaysia.",
 			"Developed UMPSA IBMS Hub using Mapbox GL and Telegram bot API, reducing building system management effort by 30%.",
-			"Created CAM Muka, a real-time facial recognition and people-counting system with MyGov*Net and WebSockets for Penjara Kajang.",
+			"Developed CAM Muka, a real-time facial recognition and people-counting system with MyGov*Net and WebSockets for Penjara Kajang.",
 			"Wrote ISO 24817-compliant Piping Defect Calculation Engine for GAPURA.",
 			"Developed Polymer Rate and PPE Monitoring systems with TensorFlow.js, achieving 95% prediction accuracy using drones and CCTV feeds.",
-			"Enhanced CERDAS with new modules to centralize emergency incident reporting.",
-			"Improved Fish Pond Monitoring System using Recharts and MQTT data logger for real-time water quality analysis.",
 			"Designed secure, bandwidth-efficient data pipelines, improving real-time processing latency by 20%.",
-			"Integrated Telegram Bots for alert notifications and reporting.",
 			"Provided technical consultations, leading to scalable, maintainable architectures.",
 			"Mentored junior developers, conducted code reviews, and introduced coding standards.",
 			"Produced detailed project documentation, including SRS, SDD, user manuals, testing documents, and UAT forms.",
@@ -108,7 +104,7 @@ const career = [
 
 export default function Experiences() {
 	return (
-		<div className="w-full">
+		<div className="w-full h-fit">
 			<EnterTransition className="delay-75" once>
 				<h1 className="text-4xl font-extrabold mb-6 uppercase dark:text-white">
 					My Career{" "}

@@ -7,7 +7,6 @@ import {
 	RiReactjsLine,
 	RiJavascriptLine,
 	RiNodejsLine,
-	RiExternalLinkLine,
 } from "react-icons/ri";
 import {
 	TbBrandTypescript,
@@ -18,6 +17,7 @@ import { DiPostgresql } from "react-icons/di";
 import Link from "next/link";
 import EnterTransition from "@/components/motion/EnterTransition";
 import { useGlobalStore } from "@/stores/useGlobalStore";
+import { Button } from "@/components/ui/button";
 
 const blackOps = Black_Ops_One({ weight: "400" });
 
@@ -88,10 +88,10 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
 			<div className="pb-10">
 				<EnterTransition once>
 					<h1 className="text-5xl font-extrabold mb-6 uppercase dark:text-white">
-						Meet the{" "}
+						Meet the
 						<span
 							className={cn(
-								"text-accent dark:text-primary pl-4 text-6xl",
+								"text-accent dark:text-primary text-6xl pl-4",
 								blackOps.className
 							)}
 						>
@@ -121,7 +121,7 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
 				</EnterTransition>
 
 				<EnterTransition
-					className="grid grid-cols-2 gap-4 delay-300"
+					className="grid grid-cols-2 gap-8 delay-300"
 					once
 				>
 					<div className="flex flex-col gap-4">
@@ -155,15 +155,14 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
 					</div>
 
 					<div className="col-span-2">
-						<div
-							className="arsenal-toggle underline text-accent flex items-center gap-2 cursor-pointer"
+						<Button
+							className="arsenal-toggle text-accent dark:text-background bg-secondary/20 hover:bg-secondary/10 dark:bg-primary"
 							onClick={() => {
 								setIsViewingStack(true);
 							}}
 						>
-							<div>Unveil my full arsenal</div>
-							<RiExternalLinkLine />
-						</div>
+							Unveil my full arsenal
+						</Button>
 					</div>
 				</EnterTransition>
 			</div>

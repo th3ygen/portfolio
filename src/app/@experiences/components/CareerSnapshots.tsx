@@ -35,8 +35,8 @@ const CareerSelector: React.FC<CareerSnapshotProps> = ({
 	return (
 		<div
 			className={cn(
-				"flex h-[100px] justify-center cursor-pointer border-r-0 border-primary duration-100",
-				active && "bg-primary/10 border-r-8 border-primary"
+				"flex h-[100px] w-full justify-center cursor-pointer border-r-2 duration-300 border-accent hover:bg-secondary/10",
+				active && "bg-secondary/15 border-r-8 border-primary hover:border-primary hover:bg-secondary/20",
 			)}
 			onClick={onClick}
 		>
@@ -93,9 +93,9 @@ const CareerContent: React.FC<CareerSnapshotProps> = ({
 			className={cn(
 				"relative grid grid-cols-12 gap-4 pl-4 text-justify z-10"
 			)}
-			initial={{ opacity: 0, }}
-			animate={{ opacity: 1, }}
-			exit={{ opacity: 0,  }}
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
 			transition={{ duration: 0.3 }}
 		>
 			<div className="col-span-12">
@@ -111,12 +111,31 @@ const CareerContent: React.FC<CareerSnapshotProps> = ({
 				<p className="text-sm">{address}</p>
 			</div>
 			<div className="col-span-12">
-				<ul>
+				<ul className="pl-4">
 					{bullets.map((bullet, index) => (
-						<li key={index} className="text-sm flex gap-2">
+						<motion.li
+							key={index}
+							className="text-sm flex gap-2 pb-2"
+							initial={{
+								opacity: 0,
+								x: -10,
+							}}
+							animate={{
+								opacity: 1,
+								x: 0,
+							}}
+							exit={{
+								opacity: 0,
+								x: -10,
+							}}
+							transition={{
+								duration: 0.2,
+								delay: 0.1 + index * 0.1,
+							}}
+						>
 							<div className="text-primary">•</div>
 							<div>{bullet}</div>
-						</li>
+						</motion.li>
 					))}
 				</ul>
 			</div>
@@ -153,7 +172,10 @@ export default function CareerSnapshots({
 				))}
 			</div>
 			<AnimatePresence>
-				<motion.div className="col-span-9 relative overflow-hidden" layout>
+				<motion.div
+					className="col-span-9 relative overflow-hidden"
+					layout
+				>
 					<CareerContent {...snapshots[activeIndex]} />
 					<div className="w-full h-fit absolute left-2 top-0 -z-10 opacity-10">
 						<Image
