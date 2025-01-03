@@ -34,6 +34,8 @@ import {
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useGlobalStore } from "@/stores/useGlobalStore";
+import { useProjectStore } from "@/stores/useProjectStore";
 
 export type ProjectShowcase = {
 	image: string;
@@ -47,10 +49,22 @@ export type ProjectTag = {
 	tooltip: string;
 };
 
+export type Client = {
+	name: string;
+	shortName: string;
+	logo: string;
+	link: string;
+}
+
 export type Project = {
 	title: string;
 	longTitle?: string;
 	description: string;
+	longDescription?: string[];
+	clients?: Client[];
+	role?: string;
+	highlights?: string;
+	technologies?: string;
 	image: string;
 	link?: string;
 	showcase?: ProjectShowcase[];
@@ -223,6 +237,9 @@ export default function ProjectCard({
 	className = "",
 	project,
 }: ProjectCardProps) {
+	const { setIsViewingProject } = useGlobalStore();
+	const { setProject } = useProjectStore();
+
 	const ref = useRef<HTMLDivElement>(null);
 
 	const { scrollY } = useScroll();
@@ -247,7 +264,10 @@ export default function ProjectCard({
 
 			const tag = projectTags[tagId];
 			return (
-				<Tooltip key={project.title + "-tag-" + tag.name} delayDuration={0}>
+				<Tooltip
+					key={project.title + "-tag-" + tag.name}
+					delayDuration={0}
+				>
 					<TooltipTrigger>
 						<Badge
 							className={cn(
@@ -259,10 +279,17 @@ export default function ProjectCard({
 							{tag.icon}
 						</Badge>
 					</TooltipTrigger>
-					<TooltipContent className="bg-accent">{tag.tooltip}</TooltipContent>
+					<TooltipContent className="bg-secondary text-primary">
+						{tag.tooltip}
+					</TooltipContent>
 				</Tooltip>
 			);
 		});
+	};
+
+	const handleViewDetails = () => {
+		setIsViewingProject(true);
+		setProject(project);
 	};
 
 	return (
@@ -296,10 +323,10 @@ export default function ProjectCard({
 				</div>
 				<div className="col-span-2 px-6 py-4 flex flex-col justify-between">
 					<div>
-						<div className="text-2xl font-bold text-white">
+						<div className="text-2xl font-bold dark:text-white">
 							{project.title}
 						</div>
-						<div className="mb-4 text-md text-primary">
+						<div className="mb-4 text-md text-secondary dark:text-primary">
 							{project.longTitle}
 						</div>
 						<div className="text-md text-justify">
@@ -311,7 +338,9 @@ export default function ProjectCard({
 							{project.tags && placeTags()}
 						</div>
 						<div>
-							<Button>View details</Button>
+							<Button onClick={handleViewDetails}>
+								View details
+							</Button>
 						</div>
 					</div>
 				</div>
