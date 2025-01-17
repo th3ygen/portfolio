@@ -19,15 +19,6 @@ import { MdDeleteForever } from "react-icons/md";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useRef } from "react";
-import {
-	motion,
-	useMotionValue,
-	useMotionValueEvent,
-	useScroll,
-	useTransform,
-} from "motion/react";
-import { cubicBezier } from "motion";
 import { FaMedal } from "react-icons/fa";
 import {
 	Tooltip,
@@ -36,10 +27,13 @@ import {
 } from "@/components/ui/tooltip";
 import { useGlobalStore } from "@/stores/useGlobalStore";
 import { useProjectStore } from "@/stores/useProjectStore";
+import { useInView } from "motion/react";
+import { useRef } from "react";
 
-export type ProjectShowcase = {
-	image: string;
-	description: string;
+export type Photo = {
+	path: string;
+	caption: string;
+	category: "ui" | "camera";
 };
 
 export type ProjectTag = {
@@ -52,9 +46,18 @@ export type ProjectTag = {
 export type Client = {
 	name: string;
 	shortName: string;
-	logo: string;
+	logo: {
+		src: string;
+		width: number;
+		height: number;
+	};
 	link: string;
-}
+};
+
+export type ProjectAward = {
+	title: string;
+	medal?: "gold" | "silver" | "bronze";
+};
 
 export type Project = {
 	title: string;
@@ -65,9 +68,10 @@ export type Project = {
 	role?: string;
 	highlights?: string;
 	technologies?: string;
+	awards?: ProjectAward[];
 	image: string;
 	link?: string;
-	showcase?: ProjectShowcase[];
+	gallery?: Photo[];
 	tags?: Array<ProjectTagName>;
 };
 
@@ -233,59 +237,81 @@ export const projectTags: Record<string, ProjectTag> = {
 	},
 };
 
+export const placeTags = (p: Project) => {
+	return tagsOrder.map((tagId) => {
+		if (!p.tags!.includes(tagId)) return null;
+
+		const tag = projectTags[tagId];
+		return (
+			<Tooltip key={p.title + "-tag-" + tag.name} delayDuration={0}>
+				<TooltipTrigger className="cursor-auto">
+					<Badge
+						className={cn(
+							"bg-transparent border-accent p-[6px]",
+							tag.color
+						)}
+						variant="outline"
+					>
+						{tag.icon}
+					</Badge>
+				</TooltipTrigger>
+				<TooltipContent className="relative z-[999] border-2 border-accent/20 bg-background text-secondary dark:bg-secondary dark:text-primary">
+					{tag.tooltip}
+				</TooltipContent>
+			</Tooltip>
+		);
+	});
+};
+
+export function Awards({
+	title: projectTitle,
+	awards,
+	isInView,
+}: Project & { isInView: boolean }) {
+	if (!awards || awards.length === 0) return null;
+
+	const awardIcons = {
+		gold: <FaMedal className="text-2xl text-yellow-300" size={40} />,
+		silver: <FaMedal className="text-2xl text-gray-300" size={40} />,
+		bronze: <FaMedal className="text-2xl text-yellow-600" size={40} />,
+	};
+
+	const medals = awards.map((award, index) => {
+		const { title, medal } = award;
+		return (
+			<div
+				key={projectTitle + "-award-" + title + index}
+				className={cn(
+					"opacity-0 -translate-y-5 duration-500 delay-300",
+					isInView && "opacity-100 translate-y-0"
+				)}
+			>
+				<Tooltip delayDuration={0}>
+					<TooltipTrigger className="cursor-auto">
+						{awardIcons[medal!]}
+					</TooltipTrigger>
+					<TooltipContent className="relative z-[999] dark:bg-secondary text-primary capitalize">
+						<span>{`${medal} @${title}`}</span>
+					</TooltipContent>
+				</Tooltip>
+			</div>
+		);
+	});
+
+	return <div className="absolute top-0 right-0 flex gap-2">{medals}</div>;
+}
+
 export default function ProjectCard({
 	className = "",
 	project,
 }: ProjectCardProps) {
+	const ref = useRef<HTMLDivElement>(null);
 	const { setIsViewingProject } = useGlobalStore();
 	const { setProject } = useProjectStore();
-
-	const ref = useRef<HTMLDivElement>(null);
-
-	const { scrollY } = useScroll();
-	const proximity = useMotionValue(0);
-
-	useMotionValueEvent(scrollY, "change", () => {
-		const y = ref.current?.getBoundingClientRect().top;
-		const diff =
-			y! - window.innerHeight / 2 + ref.current!.offsetHeight / 2;
-
-		proximity.set(Math.abs(diff));
+	const isInView = useInView(ref, {
+		once: true,
+		amount: "all"
 	});
-
-	const scale = useTransform(proximity, [400, 0, 100], [0.95, 1.05, 0.95], {
-		ease: cubicBezier(0.17, 0.67, 0.83, 0.67),
-		clamp: true,
-	});
-
-	const placeTags = () => {
-		return tagsOrder.map((tagId) => {
-			if (!project.tags!.includes(tagId)) return null;
-
-			const tag = projectTags[tagId];
-			return (
-				<Tooltip
-					key={project.title + "-tag-" + tag.name}
-					delayDuration={0}
-				>
-					<TooltipTrigger>
-						<Badge
-							className={cn(
-								"bg-transparent border-accent p-[6px]",
-								tag.color
-							)}
-							variant="outline"
-						>
-							{tag.icon}
-						</Badge>
-					</TooltipTrigger>
-					<TooltipContent className="bg-secondary text-primary">
-						{tag.tooltip}
-					</TooltipContent>
-				</Tooltip>
-			);
-		});
-	};
 
 	const handleViewDetails = () => {
 		setIsViewingProject(true);
@@ -293,35 +319,30 @@ export default function ProjectCard({
 	};
 
 	return (
-		<motion.div
+		<div
 			ref={ref}
 			className={cn(
-				"relative rounded-lg hover:shadow-md bg-secondary/10 dark:bg-secondary/20 duration-300 shadow-gray-800 border-secondary/20 dark:border-secondary/40 border-[1px] h-fit overflow-hidden group flex",
+				"relative rounded-lg hover:shadow-md bg-secondary/10 dark:bg-secondary/40 duration-300 shadow-gray-800 border-secondary/20 dark:border-secondary/40 border-[1px] h-fit overflow-hidden flex",
 				className
 			)}
-			style={{ scale }}
 		>
 			<div className="relative w-full h-full grid grid-cols-3">
-				{project.tags && project.tags.includes("award") && (
-					<div className="absolute top-0 right-0">
-						<FaMedal className="text-4xl text-yellow-400" />
-					</div>
-				)}
-				<div className="relative col-span-1">
-					<div className="absolute top-0 left-0 flex justify-center items-center w-full h-full z-10 bg-secondary/20 group-hover:bg-secondary/10 duration-300"></div>
+				<Awards {...project} isInView={isInView} />
+				<div className="relative col-span-1 group">
+					<div className="absolute top-0 left-0 flex justify-center items-center w-full h-full z-10 bg-black/10 dark:bg-black/40 group-hover:bg-black/20 duration-300"></div>
 					<div className="absolute top-0 left-0 w-full h-full flex flex-col">
 						<div className="relative w-full h-full overflow-hidden">
 							<Image
 								src={project.image}
 								alt={project.title}
-								className="w-full h-full object-cover rounded-sm scale-125 group-hover:scale-100 duration-1000"
+								className="w-full h-full object-cover rounded-sm scale-110 group-hover:scale-100 duration-1000"
 								height={200}
 								width={300}
 							/>
 						</div>
 					</div>
 				</div>
-				<div className="col-span-2 px-6 py-4 flex flex-col justify-between">
+				<div className="min-h-[250px] col-span-2 px-6 py-4 flex flex-col justify-between">
 					<div>
 						<div className="text-2xl font-bold dark:text-white">
 							{project.title}
@@ -335,9 +356,9 @@ export default function ProjectCard({
 					</div>
 					<div className="flex gap-2 items-end justify-between pt-6">
 						<div className="flex gap-2 flex-wrap">
-							{project.tags && placeTags()}
+							{project.tags && placeTags(project)}
 						</div>
-						<div>
+						<div className="w-fit">
 							<Button onClick={handleViewDetails}>
 								View details
 							</Button>
@@ -345,6 +366,6 @@ export default function ProjectCard({
 					</div>
 				</div>
 			</div>
-		</motion.div>
+		</div>
 	);
 }

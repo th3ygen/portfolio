@@ -68,20 +68,32 @@ const ThemeToggle: React.FC = () => {
 
 const VerticalNav = ({ show }: { show: boolean }) => {
 	return (
-		<nav className="flex flex-col absolute top-12 right-0 pt-4 text-end -z-10">
-			{navs.map((nav, index) => (
-				<a
-					key={`vertical-nav-${index}`}
-					onClick={() => scrollTo(nav.target)}
-					className={cn(
-						"py-4 w-28 cursor-pointer transform transition-all duration-300 opacity-0 -translate-y-10",
-						show && "translate-y-0 opacity-100"
-					)}
-				>
-					{nav.label}
-				</a>
-			))}
-		</nav>
+		<>
+			<nav className="flex flex-col absolute top-12 right-0 pt-4 text-end -z-10">
+				{navs.map((nav, index) => (
+					<a
+						key={`vertical-nav-${index}`}
+						onClick={() => scrollTo(nav.target)}
+						className={cn(
+							"py-4 w-28 cursor-pointer transform transition-all duration-300 opacity-0 -translate-y-10",
+							show && "translate-y-0 opacity-100"
+						)}
+					>
+						{nav.label}
+					</a>
+				))}
+			</nav>
+			<div
+				className={cn(
+					"fixed right-14 bottom-0 h-full flex items-end pointer-events-none py-10 opacity-0 translate-y-10 duration-500",
+					show && "opacity-60 translate-y-0"
+				)}
+			>
+				<div className="[writing-mode:vertical-lr] -scale-100 border-l-[1px] pt-2 border-primary h-3/5 tracking-[8px] font-light">
+					Muhd. Aidil Syazwan Hamdan
+				</div>
+			</div>
+		</>
 	);
 };
 
@@ -94,7 +106,7 @@ const Topbar: React.FC = ({ hideTreshold = 800 }: TopbarProps) => {
 	});
 
 	return (
-		<div className="fixed top-0 left-0 w-full flex justify-between items-center p-6 px-14 bg-background z-20">
+		<div className="fixed top-0 left-0 w-full flex justify-between items-center p-6 px-14 bg-background z-40">
 			<Logo />
 			<div className="flex gap-8 items-center">
 				<nav
@@ -113,7 +125,7 @@ const Topbar: React.FC = ({ hideTreshold = 800 }: TopbarProps) => {
 						</a>
 					))}
 				</nav>
-				<div className="relative flex flex-col items-end">
+				<div className="relative flex flex-col">
 					<ThemeToggle />
 					<VerticalNav show={isHidden} />
 				</div>

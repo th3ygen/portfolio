@@ -3,6 +3,8 @@ import Topbar from "@/components/Topbar";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/providers/ThemeProvider";
+import Footer from "@/components/Footer";
+/* import RockBottom from "@/components/RockBottom"; */
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,16 +37,13 @@ export default function RootLayout({
 					enableSystem
 				>
 					<Topbar />
-					<main className="flex gap-20">
-						<div className="relative w-1/3 z-20">{children}</div>
+					<main className="relative flex gap-20 pb-2">
+						<div className="relative w-1/3 z-50">{children}</div>
 						<div className="w-2/3 pl-32 h-full">
 							<section id="about" className="min-h-[100vh]">
 								{about}
 							</section>
-							<section
-								id="experiences"
-								className="pt-32 mr-52"
-							>
+							<section id="experiences" className="pt-32 mr-52">
 								{experiences}
 							</section>
 							<section
@@ -53,14 +52,15 @@ export default function RootLayout({
 							>
 								{projects}
 							</section>
-							<section
-								id="contact"
-								className="pt-32 mr-52"
-							>
+							<section id="contact" className="pt-32 mr-52">
 								{contact}
+							</section>
+							<section id="footer" className="mr-52">
+								<Footer />
 							</section>
 						</div>
 					</main>
+					{/* <RockBottom /> */}
 				</ThemeProvider>
 			</body>
 		</html>

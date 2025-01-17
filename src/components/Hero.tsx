@@ -29,14 +29,14 @@ import { Aldrich } from "next/font/google";
 
 const aldrich = Aldrich({ weight: "400" });
 
-const ContactButton: React.FC<{ link: string; children: React.ReactNode }> = ({
-	link,
-	children,
-}) => {
+export const ContactButton: React.FC<{
+	link: string;
+	children: React.ReactNode;
+}> = ({ link, children }) => {
 	return (
 		<Link
 			href={link}
-			className="text-xl p-1 dark:text-primary transition duration-300 hover:scale-150"
+			className="flex gap-2 items-center text-xl p-1 dark:text-primary transition duration-300 hover:scale-150"
 		>
 			{children}
 		</Link>
@@ -55,7 +55,11 @@ const Pillar: React.FC<{ className?: string }> = ({ className = "" }) => {
 		stiffness: 100,
 		mass: 15,
 	});
-	const scrollTransform = useTransform(smoothScroll, [-20000, 20000], [0.2, 2]);
+	const scrollTransform = useTransform(
+		smoothScroll,
+		[-20000, 20000],
+		[0.2, 2]
+	);
 
 	useMotionValueEvent(scrollTransform, "change", (value) => {
 		y.set(value);
@@ -64,7 +68,7 @@ const Pillar: React.FC<{ className?: string }> = ({ className = "" }) => {
 	return (
 		<motion.div
 			ref={ref}
-			className={cn("fixed top-0 left-1/3 w-20 h-full z-50", className)}
+			className={cn("fixed top-0 left-1/3 w-20 h-full", className)}
 			style={{ scaleY: y }}
 		>
 			<div
@@ -109,10 +113,23 @@ export default function Hero() {
 		return () => {};
 	}, []);
 
+	const handleContact = () => {
+		const contactEl = document.getElementById("contact");
+
+		if (contactEl) {
+			contactEl.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+
 	return (
 		<div className="h-fit pl-20">
 			<BoxReveal className="mb-8">
-				<div className={cn("text-4xl font-bold text-accent", aldrich.className)}>
+				<div
+					className={cn(
+						"text-4xl font-bold text-accent",
+						aldrich.className
+					)}
+				>
 					Hello world! I{"'"}m...
 				</div>
 			</BoxReveal>
@@ -138,14 +155,21 @@ export default function Hero() {
 			</BoxReveal>
 
 			<BoxReveal className="mt-8 flex flex-col">
-				<div className="text-2xl text-accent font-bold">Full-stack Developer</div>
+				<div className="text-2xl text-accent font-bold">
+					Full-stack Developer
+				</div>
 				<div className="italic">
 					with {expYears}+ years of experience
 				</div>
 			</BoxReveal>
 
 			<BoxReveal className="mt-8">
-				<Button variant="outline" size="lg" className="bg-secondary/20">
+				<Button
+					variant="outline"
+					size="lg"
+					className="bg-secondary/20"
+					onClick={handleContact}
+				>
 					{"Let's"} work together!
 				</Button>
 			</BoxReveal>

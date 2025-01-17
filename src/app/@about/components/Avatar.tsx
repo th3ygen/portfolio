@@ -6,10 +6,13 @@ import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "motion/react";
 import { useGlobalStore } from "@/stores/useGlobalStore";
-import { RiJavascriptLine, RiNextjsLine, RiReactjsLine } from "react-icons/ri";
-import { SiZod } from "react-icons/si";
-import { GiBearFace } from "react-icons/gi";
-import { TbBrandTypescript } from "react-icons/tb";
+import { RiJavascriptLine, RiNextjsLine, RiNodejsLine, RiPagesLine, RiReactjsLine } from "react-icons/ri";
+import { SiArduino, SiBluetooth, SiChakraui, SiCss3, SiDatabricks, SiDocker, SiExoscale, SiExpress, SiEyeem, SiFramer, SiGit, SiGithub, SiGithubactions, SiGitlab, SiGraphql, SiGriddotai, SiGridsome, SiHtml5, SiHtmlacademy, SiHttpie, SiInsomnia, SiIota, SiJsonwebtokens, SiLeaflet, SiMapbox, SiMongodb, SiMqtt, SiNginx, SiPlangrid, SiPm2, SiPostgresql, SiPostman, SiPrisma, SiRaspberrypi, SiRedux, SiRsocket, SiSecurityscorecard, SiShadcnui, SiSocketdotio, SiSst, SiStripe, SiSwr, SiTailwindcss, SiTelegram, SiTensorflow, SiThingiverse, SiTimescale, SiTrello, SiTypescript, SiVercel, SiViadeo, SiWebrtc, SiZod } from "react-icons/si";
+import { GiBearFace, GiFarmer } from "react-icons/gi";
+import { ImEvil, ImEvil2 } from "react-icons/im";
+import { BsShieldLock, BsShieldLockFill } from "react-icons/bs";
+import { TbBinary, TbBrandTypescript } from "react-icons/tb";
+import { FaAws, FaCar, FaChartArea, FaDatabase, FaEnvelope, FaEye, FaFileExcel, FaFilePdf, FaGlobe, FaLock, FaNode, FaPlug, FaRegIdCard, FaStream, FaTable, FaTablet, FaTabletAlt, FaUsers, FaVideo } from "react-icons/fa";
 
 type TechStackItemProps = {
 	icon: React.ReactNode;
@@ -77,54 +80,54 @@ const frontendTools = [
 	},
 	{
 		name: "Redux",
-		icon: <GiBearFace size="24" />,
+		icon: <SiRedux size="24" />,
 	},
 	{
 		name: "Tailwind CSS",
-		icon: <GiBearFace size="24" />,
+		icon: <SiTailwindcss size="24" />,
 	},
 	{
 		name: "Chakra UI",
-		icon: <GiBearFace size="24" />,
+		icon: <SiChakraui size="24" />,
 	},
 	{
 		name: "shadcn",
-		icon: <GiBearFace size="24" />,
+		icon: <SiShadcnui size="24" />,
 	},
 	{
 		name: "Framer motion",
-		icon: <GiBearFace size="24" />,
+		icon: <SiFramer size="24" />,
 	},
 	{
 		name: "SWR",
-		icon: <GiBearFace size="24" />,
+		icon: <SiSwr size="24" />,
 	},
 	{
 		name: "HTML",
-		icon: <GiBearFace size="24" />,
+		icon: <SiHtml5 size="24" />,
 	},
 	{
 		name: "HTML5",
-		icon: <GiBearFace size="24" />,
+		icon: <SiHtml5 size="24" />,
 	},
 	{
 		name: "CSS",
-		icon: <GiBearFace size="24" />,
+		icon: <SiCss3 size="24" />,
 	},
 	{
 		name: "CSS3/SCSS",
-		icon: <GiBearFace size="24" />,
+		icon: <SiCss3 size="24" />,
 	},
 ];
 
 const backendTools = [
 	{
 		name: "Node.js",
-		icon: <RiNextjsLine size="24" />,
+		icon: <RiNodejsLine size="24" />,
 	},
 	{
 		name: "Express",
-		icon: <RiReactjsLine size="24" />,
+		icon: <SiExpress size="24" />,
 	},
 	{
 		name: "Typescript",
@@ -148,31 +151,31 @@ const backendTools = [
 	},
 	{
 		name: "Prisma (ORM)",
-		icon: <RiNextjsLine size="24" />,
+		icon: <SiPrisma size="24" />,
 	},
 	{
 		name: "GraphQL",
-		icon: <RiNextjsLine size="24" />,
+		icon: <SiGraphql size="24" />,
 	},
 	{
 		name: "PostgreSQL",
-		icon: <RiNextjsLine size="24" />,
+		icon: <SiPostgresql size="24" />,
 	},
 	{
 		name: "MongoDB",
-		icon: <RiNextjsLine size="24" />,
+		icon: <SiMongodb size="24" />,
 	},
 	{
 		name: "Tensorflow.js",
-		icon: <RiNextjsLine size="24" />,
+		icon: <SiTensorflow size="24" />,
 	},
 	{
 		name: "FormulaJS",
-		icon: <RiNextjsLine size="24" />,
+		icon: <FaTable size="24" />,
 	},
 	{
 		name: "HyperFormula",
-		icon: <RiNextjsLine size="24" />,
+		icon: <FaFileExcel size="24" />,
 	},
 	{
 		name: "NextAuth",
@@ -180,197 +183,197 @@ const backendTools = [
 	},
 	{
 		name: "Nodemailer",
-		icon: <RiNextjsLine size="24" />,
+		icon: <FaEnvelope size="24" />,
 	},
 ];
 
 const realtimeSystems = [
 	{
 		name: "WebSocket",
-		icon: <RiNextjsLine size="24" />,
+		icon: <FaPlug size="24" />,
 	},
 	{
 		name: "Socket.io",
-		icon: <RiReactjsLine size="24" />,
+		icon: <SiSocketdotio size="24" />,
 	},
 	{
 		name: "MQTT",
-		icon: <TbBrandTypescript size="24" />,
+		icon: <SiMqtt size="24" />,
 	},
 	{
 		name: "WebRTC",
-		icon: <RiJavascriptLine size="24" />,
+		icon: <SiWebrtc size="24" />,
 	},
 	{
 		name: "CAN Bus",
-		icon: <SiZod size="24" />,
+		icon: <FaCar size="24" />,
 	},
 	{
 		name: "Bluetooth Low Energy (BLE)",
-		icon: <GiBearFace size="24" />,
+		icon: <SiBluetooth size="24" />,
 	},
 	{
 		name: "ThingsBoard",
-		icon: <GiBearFace size="24" />,
+		icon: <SiDatabricks size="24" />,
 	},
 	{
 		name: "Arduino (C++)",
-		icon: <GiBearFace size="24" />,
+		icon: <SiArduino size="24" />,
 	},
 	{
 		name: "Raspberry Pi",
-		icon: <GiBearFace size="24" />,
+		icon: <SiRaspberrypi size="24" />,
 	},
 	{
 		name: "RTMP/RTSP",
-		icon: <GiBearFace size="24" />,
+		icon: <FaVideo size="24" />,
 	},
 ];
 
 const dataAnalytics = [
 	{
 		name: "Tensorflow.js",
-		icon: <RiNextjsLine size="24" />,
+		icon: <SiTensorflow size="24" />,
 	},
 	{
 		name: "Recharts",
-		icon: <RiReactjsLine size="24" />,
+		icon: <FaChartArea size="24" />,
 	},
 	{
 		name: "Chart.js",
-		icon: <TbBrandTypescript size="24" />,
+		icon: <FaChartArea size="24" />,
 	},
 	{
 		name: "Data Visualization",
-		icon: <RiJavascriptLine size="24" />,
+		icon: <FaChartArea size="24" />,
 	},
 	{
 		name: "Predictive Analysis",
-		icon: <SiZod size="24" />,
+		icon: <FaChartArea size="24" />,
 	},
 	{
 		name: "Real-time Monitoring",
-		icon: <GiBearFace size="24" />,
+		icon: <FaEye size="24" />,
 	},
 ];
 
 const devopsInfra = [
 	{
 		name: "PM2",
-		icon: <RiNextjsLine size="24" />,
+		icon: <SiPm2 size="24" />,
 	},
 	{
 		name: "Nginx",
-		icon: <RiReactjsLine size="24" />,
+		icon: <SiNginx size="24" />,
 	},
 	{
 		name: "AWS (EC2, S3, RDS)",
-		icon: <TbBrandTypescript size="24" />,
+		icon: <FaAws size="24" />,
 	},
 	{
 		name: "Docker",
-		icon: <RiJavascriptLine size="24" />,
+		icon: <SiDocker size="24" />,
 	},
 	{
 		name: "Github Actions",
-		icon: <SiZod size="24" />,
+		icon: <SiGithubactions size="24" />,
 	},
 	{
 		name: "Vercel",
-		icon: <GiBearFace size="24" />,
+		icon: <SiVercel size="24" />,
 	},
 ];
 
 const tools = [
 	{
 		name: "Git",
-		icon: <RiNextjsLine size="24" />,
+		icon: <SiGit size="24" />,
 	},
 	{
 		name: "GitHub",
-		icon: <RiReactjsLine size="24" />,
+		icon: <SiGithub size="24" />,
 	},
 	{
 		name: "GitLab",
-		icon: <TbBrandTypescript size="24" />,
+		icon: <SiGitlab size="24" />,
 	},
 	{
 		name: "Postman",
-		icon: <RiJavascriptLine size="24" />,
+		icon: <SiPostman size="24" />,
 	},
 	{
 		name: "Insomnia",
-		icon: <SiZod size="24" />,
+		icon: <SiInsomnia size="24" />,
 	},
 	{
 		name: "Trello",
-		icon: <GiBearFace size="24" />,
+		icon: <SiTrello size="24" />,
 	},
 	{
 		name: "Mapbox GL API",
-		icon: <GiBearFace size="24" />,
+		icon: <SiMapbox size="24" />,
 	},
 	{
 		name: "Leaflet",
-		icon: <GiBearFace size="24" />,
+		icon: <SiLeaflet size="24" />,
 	},
 	{
 		name: "Telegram Bot API",
-		icon: <GiBearFace size="24" />,
+		icon: <SiTelegram size="24" />,
 	},
 ];
 
 const webSecurity = [
 	{
 		name: "SSL",
-		icon: <RiNextjsLine size="24" />,
+		icon: <FaGlobe size="24" />,
 	},
 	{
 		name: "CORS",
-		icon: <RiReactjsLine size="24" />,
+		icon: <BsShieldLockFill size="24" />,
 	},
 	{
 		name: "CSRF",
-		icon: <TbBrandTypescript size="24" />,
+		icon: <ImEvil size="24" />,
 	},
 	{
 		name: "XSS",
-		icon: <RiJavascriptLine size="24" />,
+		icon: <ImEvil size="24" />,
 	},
 	{
-		name: "SHA256",
-		icon: <SiZod size="24" />,
+		name: "Cryptography",
+		icon: <TbBinary size="24" />,
 	},
 	{
 		name: "OAuth",
-		icon: <GiBearFace size="24" />,
+		icon: <FaLock size="24" />,
 	},
 	{
 		name: "JWT",
-		icon: <GiBearFace size="24" />,
+		icon: <SiJsonwebtokens size="24" />,
 	},
 	{
 		name: "RBAC",
-		icon: <GiBearFace size="24" />,
+		icon: <FaUsers size="24" />,
 	},
 ];
 
 const misc = [
 	{
 		name: "Stripe",
-		icon: <RiNextjsLine size="24" />,
+		icon: <SiStripe size="24" />,
 	},
 	{
 		name: "Dynamic PDF/CSV Generation",
-		icon: <RiReactjsLine size="24" />,
+		icon: <FaDatabase size="24" />,
 	},
 	{
 		name: "Static Content Management",
-		icon: <TbBrandTypescript size="24" />,
+		icon: <RiPagesLine size="24" />,
 	},
 	{
 		name: "IoT Data Logging",
-		icon: <RiJavascriptLine size="24" />,
+		icon: <FaDatabase size="24" />,
 	},
 ];
 

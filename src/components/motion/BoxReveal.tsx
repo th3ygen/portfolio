@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { useInView } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 type BoxRevealProps = {
 	className?: string;
@@ -23,32 +23,33 @@ export default function BoxReveal({
 	children,
 	delay = "delay-0",
 }: BoxRevealProps) {
-	const [isMounted, setIsMounted] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
 	const isInView = useInView(ref);
-
-	useEffect(() => {
-		setIsMounted(true);
-	}, []);
+	const [animationSeq, setAnimationSeq] = useState<number>(0);
 
 	return (
-		<div
-			className={cn(
-				"relative flex w-fit delay transform duration-500",
-				delay,
-				className,
-				isMounted && isInView && "translate-y-0 opacity-100"
-			)}
-		>
+		<div className={cn("relative flex w-fit")}>
 			<div
 				ref={ref}
 				className={cn(
-					"absolute top-0 left-0 h-full w-full bg-primary transition-all z-10 pointer-events-none",
+					"absolute top-0 left-0 h-full w-full bg-primary translate-y-52 opacity-0 blur-[100px] transition-all [transition-timing-function:cubic-bezier(0.785,0.135,0.150,0.860)] z-10 pointer-events-none",
 					`duration-1000 ${delay}`,
-					isInView && "w-0"
+					isInView && "opacity-100 translate-y-0 blur-[0px]",
+					animationSeq > 0 && "w-0"
 				)}
-			></div>
-			{children}
+				onTransitionEnd={() => {
+					setAnimationSeq((prev) => prev + 1);
+				}}
+			/>
+			<div
+				className={cn(
+					"relative opacity-0 duration-0 pointer-events-none",
+					className,
+					animationSeq > 0 && "opacity-100 pointer-events-auto"
+				)}
+			>
+				{children}
+			</div>
 		</div>
 	);
 }

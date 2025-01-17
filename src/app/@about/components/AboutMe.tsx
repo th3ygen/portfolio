@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 
 const blackOps = Black_Ops_One({ weight: "400" });
 
+
 type AboutMeProps = {
 	className?: string;
 };
@@ -87,11 +88,13 @@ export default function AboutMe({ className = "" }: AboutMeProps) {
 		<div className={className}>
 			<div className="pb-10">
 				<EnterTransition once>
-					<h1 className="text-5xl font-extrabold mb-6 uppercase dark:text-white">
-						Meet the
+					<h1 className="mb-4 uppercase dark:text-white">
+						<span className="font-extrabold text-5xl">
+							Meet the
+						</span>
 						<span
 							className={cn(
-								"text-accent dark:text-primary text-6xl pl-4",
+								"text-accent dark:text-primary text-[54px] pl-4",
 								blackOps.className
 							)}
 						>

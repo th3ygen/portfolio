@@ -1,9 +1,15 @@
 import { Project } from "@/app/@projects/components/ProjectCard";
 import { create } from "zustand";
 
+type ProjectStatus = "idle" | "loading" | "success" | "error";
+
 type ProjectStore = {
 	project: Project;
+	selectedProject: number;
+	status: ProjectStatus;
 	setProject: (project: Project) => void;
+	setStatus: (status: ProjectStatus) => void;
+	setSelectedProject: (index: number) => void;
 };
 
 export const useProjectStore = create<ProjectStore>((set) => ({
@@ -13,5 +19,9 @@ export const useProjectStore = create<ProjectStore>((set) => ({
 		image: "",
 		tags: [],
 	},
+	status: "idle",
+	selectedProject: -1,
 	setProject: (project) => set({ project }),
+	setStatus: (status) => set({ status }),
+	setSelectedProject: (index) => set({ selectedProject: index }),
 }));

@@ -10,83 +10,137 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import ProjectDetails from "./components/ProjectDetails";
 import { useGlobalStore } from "@/stores/useGlobalStore";
 import { AnimatePresence } from "motion/react";
+import { useRef } from "react";
+import { motion } from "motion/react";
 
 const client: Record<string, ProjectClient> = {
 	csm: {
 		link: "https://www.cybersecurity.my/",
-		logo: "/assets/clients/csm.png",
+		logo: {
+			src: "/assets/clients/csm.png",
+			width: 180,
+			height: 60,
+		},
 		name: "Cyber Security Malaysia",
 		shortName: "CSM",
 	},
 	penjara: {
 		link: "https://www.prison.gov.my",
-		logo: "/assets/clients/penjara.png",
+		logo: {
+			src: "/assets/clients/penjara.png",
+			width: 60,
+			height: 60,
+		},
 		name: "Penjara Kajang",
-		shortName: "",
+		shortName: "Penjara Kajang",
 	},
 	umpsa: {
 		link: "https://www.umpsa.edu.my/",
-		logo: "/assets/clients/umpsa.png",
+		logo: {
+			src: "/assets/clients/umpsa.png",
+			width: 80,
+			height: 60,
+		},
 		name: "Universiti Malaysia Pahang Al-sultan Abdullah",
 		shortName: "UMPSA",
 	},
 	ditec: {
 		link: "https://ditec.umpsa.edu.my/",
-		logo: "/assets/clients/umpsa.png",
+		logo: {
+			src: "/assets/clients/umpsa.png",
+			width: 80,
+			height: 60,
+		},
 		name: "Centre for Digital Technology",
 		shortName: "DiTec",
 	},
 	dof: {
 		link: "https://www.dof.gov.my/",
-		logo: "/assets/clients/dof.png",
+		logo: {
+			src: "/assets/clients/dof.webp",
+			width: 60,
+			height: 60,
+		},
 		name: "Department of Fisheries Malaysia",
 		shortName: "DoF",
 	},
 	satok: {
 		link: "https://satok-bridge.com/",
-		logo: "/assets/clients/satok.png",
+		logo: {
+			src: "/assets/clients/satok.png",
+			width: 60,
+			height: 60,
+		},
 		name: "Satok Bridge Digital Sdn. Bhd.",
 		shortName: "SBD",
 	},
 	gapura: {
 		link: "https://www.gapura.com.my",
-		logo: "/assets/clients/gapura.png",
+		logo: {
+			src: "/assets/clients/gapura.png",
+			width: 60,
+			height: 60,
+		},
 		name: "Gapura Solution Sdn. Bhd.",
 		shortName: "Gapura",
 	},
 	kaneka: {
 		link: "https://www.kaneka.com.my/",
-		logo: "/assets/clients/kaneka.png",
+		logo: {
+			src: "/assets/clients/kaneka.png",
+			width: 100,
+			height: 60,
+		},
 		name: "Kaneka Corporation",
 		shortName: "Kaneka",
 	},
 	fugen: {
 		link: "https://fugenlegacy.com/",
-		logo: "/assets/clients/fugen.png",
+		logo: {
+			src: "/assets/clients/fugen.png",
+			width: 120,
+			height: 100,
+		},
 		name: "Fugen Legacy",
 		shortName: "Fugen",
 	},
 	kpkm: {
 		link: "https://www.kpkm.gov.my/",
-		logo: "/assets/clients/kpkm.png",
+		logo: {
+			src: "/assets/clients/kpkm.png",
+			width: 60,
+			height: 60,
+		},
 		name: "Kolej Profesional Mara Kuala Nerang",
 		shortName: "KPKM",
 	},
 	sasaqua: {
 		link: "#",
-		logo: "/assets/clients/sasaqua.png",
+		logo: {
+			src: "/assets/clients/sasaqua.png",
+			width: 60,
+			height: 60,
+		},
 		name: "Serandu Aquaponic System",
 		shortName: "SAS",
 	},
 	justgood: {
 		link: "https://www.justgood.com.my/",
-		logo: "/assets/clients/justgood.png",
+		logo: {
+			src: "/assets/clients/justgood.png",
+			width: 100,
+			height: 60,
+		},
 		name: "JustGood",
 		shortName: "",
 	},
 	topglove: {
 		link: "https://www.topglove.com/",
-		logo: "/assets/clients/topglove.png",
+		logo: {
+			src: "/assets/clients/topglove.png",
+			width: 120,
+			height: 80,
+		},
 		name: "Top Glove Corporation Bhd.",
 		shortName: "TopGlove",
 	},
@@ -100,7 +154,7 @@ const projects = [
 			"CAM Kenderaan ensures vehicle telemetry security using CAN bus protocols and GPS/IMU sensors. Built for Cyber Security Malaysia, this geospatial blackbox offers real-time, secure, and actionable data tracking.",
 		longDescription: [
 			"CAM Kenderaan revolutionizes vehicle security and data monitoring through an innovative combination of CAN bus protocols, GPS, and IMU sensors. Developed in collaboration with Cyber Security Malaysia and University Malaysia Pahang Al-sultan Abdullah, this project delivers a robust, geospatial-enabled blackbox designed for real-time telemetry tracking and data integrity. The system decodes intricate CAN bus signals to extract critical vehicle metrics, pairing them with precise geolocation data for comprehensive monitoring.",
-			"Ensuring end-to-end data integrity, the platform employs SHA-256 cryptographic hashing to secure telemetry data, making it tamper-proof and reliable. Its robust reporting features provide stakeholders with actionable insights into vehicle performance and security metrics. CAM Kenderaan isn’t just a data collection tool; it’s a leap forward in secure, intelligent vehicle management.",
+			"Ensuring end-to-end data integrity, the platform employs cryptographic hashing to secure telemetry data, making it tamper-proof and reliable. Its robust reporting features provide stakeholders with actionable insights into vehicle performance and security metrics. CAM Kenderaan isn’t just a data collection tool; it’s a leap forward in secure, intelligent vehicle management.",
 		],
 		clients: [client.csm, client.umpsa],
 		role: "Full-stack developer",
@@ -109,6 +163,58 @@ const projects = [
 		highlights:
 			"Geospatial telematics visualization, Data serialization and deserialization, Data integrity with SHA256, CAN bus integration, CAN bus decoding using open-source DBC, GPS and IMU sensors, Data analytics and prediction, Dynamic PDF and CSV documents generation",
 		image: "/assets/projects/camkender/1-0.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/camkender/0-1.jpg",
+				caption: "discussing the beta testing strategy",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/camkender/0-2.jpg",
+				caption: "they be watching me cooking",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/camkender/1-0.jpg",
+				caption: "",
+				category: "ui",
+			},
+			{
+				path: "/assets/projects/camkender/1-1.jpg",
+				caption: "",
+				category: "ui",
+			},
+			{
+				path: "/assets/projects/camkender/1-2.jpg",
+				caption: "",
+				category: "ui",
+			},
+			{
+				path: "/assets/projects/camkender/2-0.jpg",
+				caption: "hacking them cars",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/camkender/2-1.jpg",
+				caption: "more hacking them cars",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/camkender/2-2.jpg",
+				caption: "more car hax!",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/camkender/3-0.jpg",
+				caption: "nerdge team mates",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/camkender/3-1.jpg",
+				caption: "at the CSM digital forensics lab",
+				category: "camera",
+			},
+		],
 		link: "#",
 		tags: [
 			"pnc",
@@ -137,6 +243,28 @@ const projects = [
 		highlights:
 			"Real-time recognition and people counting data analytics and visualizations, Facial recognition image data streaming, Real-time device status updates, Complex network integration (MyGov*Net), Centralized data center over private network, Bandwidth optimization for real-time data throughput, Dynamic PDF and CSV documents generation",
 		image: "/assets/projects/cammuka/2-0.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/cammuka/0-0.jpg",
+				caption: "site visit with the nerdge team",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/cammuka/0-1.jpg",
+				caption: "me and the servers",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/cammuka/1-0.jpg",
+				caption: "me again",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/cammuka/2-0.jpg",
+				caption: "",
+				category: "ui",
+			},
+		],
 		link: "#",
 		tags: [
 			"pnc",
@@ -164,6 +292,13 @@ const projects = [
 		highlights:
 			"Real-time IBMS server status monitoring and update, Third-party auth service integration, Automated notification system using Telegram and WhatsApp API, User and server activity logging",
 		image: "/assets/projects/umpsahub/0-0.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/umpsahub/0-0.jpg",
+				caption: "",
+				category: "ui",
+			},
+		],
 		link: "#",
 		tags: [
 			"pnc",
@@ -192,6 +327,34 @@ const projects = [
 		highlights:
 			"Video conference using WebRTC and Websocket for signaling, Real-time data visualization, MQTT for real-time status update, Real-time communication interface, Role-based access control (RBAC), Telegram bot API integration for real-time notification",
 		image: "/assets/projects/cerdas/1-1.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/cerdas/0-0.jpg",
+				caption: "CEISys",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/cerdas/1-0.jpg",
+				caption: "",
+				category: "ui",
+			},
+			{
+				path: "/assets/projects/cerdas/1-1.jpg",
+				caption: "",
+				category: "ui",
+			},
+			{
+				path: "/assets/projects/cerdas/1-2.jpg",
+				caption: "",
+				category: "ui",
+			},
+		],
+		awards: [
+			{
+				title: "CITREX 2023",
+				medal: "gold",
+			},
+		],
 		link: "#",
 		tags: [
 			"pnc",
@@ -219,6 +382,18 @@ const projects = [
 		highlights:
 			"Water quality data visualization, Static content management, Real-time data deserialization, Dynamic CSV documents generation",
 		image: "/assets/projects/iotpondmonitor/0-1.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/iotpondmonitor/0-0.jpg",
+				caption: "",
+				category: "ui",
+			},
+			{
+				path: "/assets/projects/iotpondmonitor/0-1.jpg",
+				caption: "",
+				category: "ui",
+			},
+		],
 		link: "#",
 		tags: ["pnc", "internal", "real_time", "automation", "iot"],
 	},
@@ -239,6 +414,18 @@ const projects = [
 		highlights:
 			"Excel-based dynamic calculation engine, Version-controlled formulas, Custom handler for file load and save, Real-time approval workflow, Role-based access control (RBAC), Dynamic PDF documents generation",
 		image: "/assets/projects/gapura/1-0.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/gapura/0-0.jpg",
+				caption: "just finished nth meeting with Gapura",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gapura/1-0.jpg",
+				caption: "",
+				category: "ui",
+			},
+		],
 		link: "#",
 		tags: ["pnc", "internal", "automation", "compliance", "real_time"],
 	},
@@ -258,6 +445,18 @@ const projects = [
 		highlights:
 			"Responsive and modern design, detailed company profile and vision showcase, SEO and performance optimization, dynamic content editing, Nodemailer integration for contact form automation, secure and scalable hosting infrastructure, mobile-friendly layout",
 		image: "/assets/projects/fugenlegacy/0-0.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/fugenlegacy/0-0.jpg",
+				caption: "",
+				category: "ui",
+			},
+			{
+				path: "/assets/projects/fugenlegacy/0-1.jpg",
+				caption: "",
+				category: "ui",
+			},
+		],
 		link: "fugenlegacy.com",
 		tags: ["pub", "automation", "cms", "seo", "static"],
 	},
@@ -275,7 +474,16 @@ const projects = [
 		role: "Full-stack developer",
 		technologies:
 			"Next.js, React, Typescript, Node.js, Fastify, Tailwind CSS, shadcn, Java ODBC Driver, Websocket, Tensorflow.js",
+		highlights:
+			"ODBC-Java data extraction using websocket relay, Tensorflow.js Graph model integration, Threshold-based classification, Real-time production rate prediction and data visualization",
 		image: "/assets/projects/polydash/0-0.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/polydash/0-0.jpg",
+				caption: "",
+				category: "ui",
+			},
+		],
 		link: "#",
 		tags: ["pnc", "internal", "real_time", "ai_ml"],
 	},
@@ -295,6 +503,44 @@ const projects = [
 		highlights:
 			"RTMP and RTSP image streaming over private network, Fine-grained PPE image data annotation, Real-time AI prediction result streaming, Dynamic routing for unique image streaming source, Non-compliance worker image cropping and logging",
 		image: "/assets/projects/csova/4-0.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/csova/0-1.jpg",
+				caption: "client meeting at Kaneka",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/csova/0-2.jpg",
+				caption: "more site visiting",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/csova/1-0.jpg",
+				caption: "more system testing",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/csova/2-0.jpg",
+				caption: "me with the AI guy at Kaneka",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/csova/2-1.jpg",
+				caption: "me with the AI guy again pilotin' the DJI drone",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/csova/3-0.jpg",
+				caption: "same team, different site, with the signature pose",
+				category: "camera",
+			},
+		],
+		awards: [
+			{
+				title: "CITREX 2023",
+				medal: "gold",
+			},
+		],
 		link: "#",
 		tags: [
 			"pnc",
@@ -323,6 +569,29 @@ const projects = [
 		highlights:
 			"Real-time image-based pellet counter and analysis, Dual-camera image streaming via websocket, Real-time camera-specific image data analysis, Dynamic CSV report generation",
 		image: "/assets/projects/pcasso/1-0.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/pcasso/0-0.jpg",
+				caption: "in-lab development sneak peek",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/pcasso/1-0.jpg",
+				caption: "",
+				category: "ui",
+			},
+			{
+				path: "/assets/projects/pcasso/2-0.jpg",
+				caption: "at the CITREX 2023 booth",
+				category: "camera",
+			},
+		],
+		awards: [
+			{
+				title: "CITREX 2023",
+				medal: "gold",
+			},
+		],
 		link: "#",
 		tags: [
 			"pnc",
@@ -350,6 +619,100 @@ const projects = [
 		highlights:
 			"Real-time elephant intrusion detection and deterrence, Geospatial intrusion alert and frequency visualization, Telegram API integration for intrusion notification, Elephant incident reporting and logging, Intrusion sensors management",
 		image: "/assets/projects/gajahsafe/3-0.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/gajahsafe/0-0.jpg",
+				caption: "AI guy doing hardware stuff",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/0-1.jpg",
+				caption: "hacking the hardware with the AI guy",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/0-2.jpg",
+				caption:
+					"final lab test for GajahSafe device (AI guy getting zesty)",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/1-0.jpg",
+				caption: "same team, different site, with the signature pose",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/1-1.jpg",
+				caption: "system installation at Padang Hijau",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/1-3.jpg",
+				caption: "getting dried under the sun",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/1-3-0.jpg",
+				caption: "",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/1-4.jpg",
+				caption: "touching grass",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/1-5.jpg",
+				caption: "in search for gajah",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/1-7.jpg",
+				caption: "more installations",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/1-8.jpg",
+				caption: "playing with them drones",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/2-0.jpg",
+				caption: "a whole stakeholders meeting",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/2-1.jpg",
+				caption:
+					"the big boss presenting the GajahSafe geospatial feature",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/2-2.jpg",
+				caption: "me in the typical dev outfit (post meeting)",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/4-0.jpg",
+				caption: "",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/gajahsafe/4-1.jpg",
+				caption: "",
+				category: "camera",
+			},
+		],
+		awards: [
+			{
+				title: "CITREX 2023",
+				medal: "gold",
+			},
+			{
+				title: "ITEX 2023",
+				medal: "gold",
+			},
+		],
 		link: "#",
 		tags: [
 			"pnc",
@@ -377,6 +740,23 @@ const projects = [
 		highlights:
 			"Real-time water quality data visualization, Telegram API integration for real-time notification, Device activity notification, IoT data logging, Static content serving with custom content management, Dynamic CSV document generation",
 		image: "/assets/projects/sipfos/2-0.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/sipfos/0-0.jpg",
+				caption: "tweaking the device before deployment",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/sipfos/1-0.jpg",
+				caption: "at the site, wiring stuff",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/sipfos/1-1.jpg",
+				caption: "i'm in! *hacker voice intensifies*",
+				category: "camera",
+			},
+		],
 		link: "#",
 		tags: ["pnc", "internal", "real_time", "automation", "iot"],
 	},
@@ -397,6 +777,18 @@ const projects = [
 		highlights:
 			"OAuth-based social account linking and password recovery, User profile and tutor portfolio customization, Parent job posting and tutor application workflows, Two-party approval system with secure payment integration, Affiliate system with promotional code generation and benefit tracking, secure and scalable hosting infrastructure, Automated notification and promotional emails, Secure refund approval workflow, Dynamic file uploads",
 		image: "/assets/projects/fugentutor/0-0.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/fugentutor/0-0.jpg",
+				caption: "",
+				category: "ui"
+			},
+			{
+				path: "/assets/projects/fugentutor/0-1.jpg",
+				caption: "",
+				category: "ui"
+			},
+		],
 		link: "fugentutor.com",
 		tags: [
 			"pub",
@@ -423,6 +815,23 @@ const projects = [
 		highlights:
 			"Real-time vegetable growth stage visualization with accurate x-y proportional mapping on troughs, Data analysis with insights and trends, Exportable data report, Detailed inference logging for growth tracking, Crop yield estimation based on historical data, Live data updates",
 		image: "/assets/projects/justgood/0-0.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/justgood/0-1.jpg",
+				caption: "me as dev doing dev work",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/justgood/1-0.jpg",
+				caption: "more site visit",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/justgood/1-2.jpg",
+				caption: "flying the bird for some aerial shots",
+				category: "camera",
+			},
+		],
 		link: "#",
 		tags: ["pnc", "internal", "real_time", "automation", "ai_ml"],
 	},
@@ -443,6 +852,19 @@ const projects = [
 			"Real-time video and audio communication over private network using WebRTC, Low cost IoT device solution, Map-based event notification and alert visualization, Centralized emergency response control, Emergency incident reporting and notification, Telegram bot API implementation",
 		role: "Full-stack developer",
 		image: "/assets/projects/ceisys/0-0.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/ceisys/1-0.jpg",
+				caption: "the typical dev outfit",
+				category: "camera",
+			},
+		],
+		awards: [
+			{
+				title: "CITREX 2023",
+				medal: "gold",
+			},
+		],
 		link: "#",
 		tags: [
 			"pnc",
@@ -470,6 +892,29 @@ const projects = [
 		highlights:
 			"Glove former yaw and pitch calculation using Infra-red proximity sensors, Real-time former indexing and angle data visualization, Former misalignment calculation simulation tool, Dynamic CSV and excel sheet document generation",
 		image: "/assets/projects/topglove/2-2.jpg",
+		gallery: [
+			{
+				path: "/assets/projects/topglove/0-0.jpg",
+				caption: "my everyday view at the old lab",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/topglove/1-0.jpg",
+				caption: "had to censor the AI guy face",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/topglove/1-1.jpg",
+				caption: "after 2 eternity at the site",
+				category: "camera",
+			},
+			{
+				path: "/assets/projects/topglove/1-2.jpg",
+				caption:
+					"same team, different site, with the original signature pose",
+				category: "camera",
+			},
+		],
 		link: "#",
 		tags: ["pnc", "internal", "real_time", "prototype", "iot"],
 	},
@@ -477,47 +922,57 @@ const projects = [
 
 export default function Projects() {
 	const { isViewingProject } = useGlobalStore();
+	const ref = useRef<HTMLDivElement>(null);
+
 	return (
-		<div className="relative w-full h-fit pb-20">
-			<EnterTransition className="delay-75" once>
-				<h1 className="text-4xl font-extrabold mb-6 uppercase dark:text-white">
-					<span className={"text-accent dark:text-primary"}>
-						Projects
+		<TooltipProvider>
+			<div className="relative w-full h-fit pb-20">
+				<EnterTransition className="delay-75" once>
+					<h1 className="text-4xl font-extrabold mb-6 uppercase dark:text-white">
+						<span className={"text-accent dark:text-primary"}>
+							Projects
+						</span>
+					</h1>
+				</EnterTransition>
+				<EnterTransition className="delay-150 mb-8" once>
+					<p className="leading-7 text-justify">
+						Every project is a chance to solve real-world problems
+						and bring ideas to life. Here are some of the most
+						exciting and impactful projects I’ve worked on, where I
+						got to push boundaries, explore new technologies, and
+						deliver meaningful solutions.
+					</p>
+				</EnterTransition>
+				<motion.div
+					ref={ref}
+					className="relative flex justify-center items-center p-4 w-full h-full border-primary/20 border-2 rounded-xl overflow-hidden"
+					layout
+				>
+					<div className="w-full grid grid-cols-1 gap-y-4 gap-x-2">
+						{projects.map((project, index) => (
+							<EnterTransition once key={"project-" + index}>
+								<ProjectCard project={project} />
+							</EnterTransition>
+						))}
+					</div>
+					<div className="absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none -z-10"></div>
+				</motion.div>
+
+				<EnterTransition
+					className="absolute bottom-0 left-0 w-full flex justify-center delay-300"
+					once
+				>
+					<span className="text-xs text-foreground">
+						* Most of these projects were built for private networks
+						or proprietary use, so public links aren’t available.
+						However, I’d be happy to discuss the technical details
+						and challenges I tackled!
 					</span>
-				</h1>
-			</EnterTransition>
-			<EnterTransition className="delay-150 mb-8" once>
-				<p className="leading-7 text-justify">
-					Every project is a chance to solve real-world problems and
-					bring ideas to life. Here are some of the most exciting and
-					impactful projects I’ve worked on, where I got to push
-					boundaries, explore new technologies, and deliver meaningful
-					solutions.
-				</p>
-			</EnterTransition>
-			<TooltipProvider>
-				<div className="grid grid-cols-1 gap-2">
-					{projects.map((project, index) => (
-						<EnterTransition once key={"project-" + index}>
-							<ProjectCard project={project} />
-						</EnterTransition>
-					))}
-				</div>
-			</TooltipProvider>
-			<EnterTransition
-				className="absolute bottom-0 left-0 w-full flex justify-center delay-300"
-				once
-			>
-				<span className="text-xs text-foreground">
-					* Most of these projects were built for private networks or
-					proprietary use, so public links aren’t available. However,
-					I’d be happy to discuss the technical details and challenges
-					I tackled!
-				</span>
-			</EnterTransition>
-			<AnimatePresence>
-				{isViewingProject && <ProjectDetails />}
-			</AnimatePresence>
-		</div>
+				</EnterTransition>
+				<AnimatePresence>
+					{isViewingProject && <ProjectDetails />}
+				</AnimatePresence>
+			</div>
+		</TooltipProvider>
 	);
 }
