@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/providers/ThemeProvider";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/toaster";
 /* import RockBottom from "@/components/RockBottom"; */
 
 const inter = Inter({ subsets: ["latin"] });
@@ -61,6 +62,7 @@ export default function RootLayout({
 						</div>
 					</main>
 					{/* <RockBottom /> */}
+					<Toaster />
 				</ThemeProvider>
 			</body>
 		</html>

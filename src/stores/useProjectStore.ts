@@ -1,4 +1,4 @@
-import { Project } from "@/app/@projects/components/ProjectCard";
+import type { Project } from "project";
 import { create } from "zustand";
 
 type ProjectStatus = "idle" | "loading" | "success" | "error";

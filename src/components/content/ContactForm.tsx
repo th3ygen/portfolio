@@ -7,10 +7,30 @@ import { Textarea } from "../ui/textarea";
 import React from "react";
 import EnterTransition from "../motion/EnterTransition";
 import ContactCard from "./ContactCard";
+import { useToast } from "@/hooks/use-toast";
+import type { Contact } from "contact";
 
 const ACCESS_KEY: string = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "";
 
-export default function EmailForm() {
+const RANDOM_TOASTS = [
+	"Let's hope this email doesn't get lost in the void 💀💀",
+	"I'll find this email even in my spam folder, I promise 🤞🤞",
+	"This email will find me well",
+	"Your message has been bottled and thrown into the digital ocean 🍾🌊",
+	"The pegion has been sent, now we wait 🐦🕰️",
+	"The mailman has been dispatched 📬🏃",
+	"Your 0 and 1s have been sent 📨📨",
+];
+
+type ContactFormProps = {
+	phone: Contact;
+	email: Contact;
+	area: Contact;
+};
+
+export default function ContactForm({ phone, email, area }: ContactFormProps) {
+	const { toast } = useToast();
+
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	async function handleSubmit(event: any) {
 		event.preventDefault();
@@ -31,7 +51,11 @@ export default function EmailForm() {
 		});
 		const result = await response.json();
 		if (result.success) {
-			console.log(result);
+			const rnd = Math.floor(Math.random() * RANDOM_TOASTS.length);
+			toast({
+				title: "Great!",
+				description: RANDOM_TOASTS[rnd],
+			});
 		}
 	}
 
@@ -73,14 +97,12 @@ export default function EmailForm() {
 			<div className="w-full -translate-x-28 flex flex-col justify-center gap-4">
 				<EnterTransition once className="delay-100" direction="left">
 					<ContactCard title="Phone" icon={<FaPhoneAlt size={20} />}>
-						<a href="tel:+601136528296">+601136528296</a>
+						<a href={phone.link || "#"}>{phone.content}</a>
 					</ContactCard>
 				</EnterTransition>
 				<EnterTransition once className="delay-300" direction="left">
 					<ContactCard title="Email" icon={<FaEnvelope size={20} />}>
-						<a href="mailto:i.dilsyaz1@gmail.com">
-							i.dilsyaz1@gmail.com
-						</a>
+						<a href={email.link || "#"}>{email.content}</a>
 					</ContactCard>
 				</EnterTransition>
 				<EnterTransition once className="delay-500" direction="left">
@@ -88,7 +110,7 @@ export default function EmailForm() {
 						title="Area"
 						icon={<FaSearchLocation size={20} />}
 					>
-						I live in Sungai Penchala, Kuala Lumpur
+						<a href={area.link || "#"} target="_blank">{area.content}</a>
 					</ContactCard>
 				</EnterTransition>
 			</div>

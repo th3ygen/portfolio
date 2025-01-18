@@ -1,17 +1,13 @@
 "use client";
 
 import EnterTransition from "@/components/motion/EnterTransition";
-import type {
-	Project,
-	Client as ProjectClient,
-} from "./components/ProjectCard";
-import ProjectCard from "./components/ProjectCard";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import ProjectDetails from "./components/ProjectDetails";
 import { useGlobalStore } from "@/stores/useGlobalStore";
-import { AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import type { Project, Client as ProjectClient } from "project";
 import { useRef } from "react";
-import { motion } from "motion/react";
+import ProjectCard from "./components/ProjectCard";
+import ProjectDetails from "./components/ProjectDetails";
 
 const client: Record<string, ProjectClient> = {
 	csm: {
@@ -781,12 +777,12 @@ const projects = [
 			{
 				path: "/assets/projects/fugentutor/0-0.jpg",
 				caption: "",
-				category: "ui"
+				category: "ui",
 			},
 			{
 				path: "/assets/projects/fugentutor/0-1.jpg",
 				caption: "",
-				category: "ui"
+				category: "ui",
 			},
 		],
 		link: "fugentutor.com",
@@ -924,6 +920,14 @@ export default function Projects() {
 	const { isViewingProject } = useGlobalStore();
 	const ref = useRef<HTMLDivElement>(null);
 
+	const ProjectCards: React.FC = () => {
+		return projects.map((project, index) => (
+			<EnterTransition once key={"project-" + index}>
+				<ProjectCard project={project} />
+			</EnterTransition>
+		));
+	};
+
 	return (
 		<TooltipProvider>
 			<div className="relative w-full h-fit pb-20">
@@ -949,11 +953,7 @@ export default function Projects() {
 					layout
 				>
 					<div className="w-full grid grid-cols-1 gap-y-4 gap-x-2">
-						{projects.map((project, index) => (
-							<EnterTransition once key={"project-" + index}>
-								<ProjectCard project={project} />
-							</EnterTransition>
-						))}
+						<ProjectCards />
 					</div>
 					<div className="absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none -z-10"></div>
 				</motion.div>

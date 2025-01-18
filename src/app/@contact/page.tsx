@@ -1,5 +1,20 @@
-import EmailForm from "@/components/content/EmailForm";
+import ContactForm from "@/components/content/ContactForm";
 import EnterTransition from "@/components/motion/EnterTransition";
+
+const contact = {
+	phone: {
+		link: "tel:+601136528296",
+		content: "+6011-3652-8296",
+	},
+	email: {
+		link: "mailto:i.dilsyaz1@gmail.com",
+		content: "i.dilsyaz1@gmail.com",
+	},
+	area: {
+		link: "https://maps.app.goo.gl/1rd5KwZcao7BAcit6",
+		content: "Sungai Penchala, Kuala Lumpur, Malaysia",
+	},
+};
 
 export default async function Contact() {
 	return (
@@ -36,7 +51,7 @@ export default async function Contact() {
 				</p>
 			</EnterTransition>
 			<EnterTransition className="delay-225 mb-4" once>
-				<EmailForm />
+				<ContactForm {...contact} />
 			</EnterTransition>
 		</div>
 	);

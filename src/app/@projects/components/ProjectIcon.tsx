@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import type { Project } from "./ProjectCard";
+import type { Project } from "project";
 import { motion } from "motion/react";
 import { useProjectStore } from "@/stores/useProjectStore";
 import { cn } from "@/lib/utils";

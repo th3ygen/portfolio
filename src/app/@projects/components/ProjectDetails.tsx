@@ -4,152 +4,21 @@ import { useGlobalStore } from "@/stores/useGlobalStore";
 import { useProjectStore } from "@/stores/useProjectStore";
 import { motion } from "motion/react";
 import BoxReveal from "@/components/motion/BoxReveal";
-import type { Photo } from "./ProjectCard";
 import Image from "next/image";
-import { Awards, placeTags, Project } from "./ProjectCard";
 import Link from "next/link";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { MdOutlineClose } from "react-icons/md";
 import React, { useEffect, useState } from "react";
-import Slider from "react-slick";
-import { cn } from "@/lib/utils";
+import { ProjectAwards } from "./ProjectAwards";
+import ProjectTags from "./ProjectTags";
+import ProjectGallery from "./ProjectGallery";
 
 const CV_PATH = process.env.NEXT_PUBLIC_CV_PATH;
 
 function Overlay() {
 	return (
 		<div className="absolute top-0 left-0 w-full h-full  bg-black/90 backdrop-blur-lg"></div>
-	);
-}
-
-function ImageEnterTransition({
-	photo,
-	className = "",
-	onReady = () => {},
-}: {
-	photo: Photo;
-	className?: string;
-	onReady?: () => void;
-}) {
-	const handleLoad = (image: HTMLImageElement) => {
-		image.classList.add("opacity-100");
-		onReady();
-	};
-
-	return (
-		<Image
-			className={cn("duration-500 opacity-0", className)}
-			alt={photo.caption}
-			src={photo.path}
-			height={500}
-			width={500}
-			onLoadingComplete={(image) => handleLoad(image)}
-		/>
-	);
-}
-
-function Gallery({ gallery }: Project) {
-	const [loadedImgCount, setLoadedImgCount] = useState(0);
-
-	if (!gallery) return null;
-
-	let len = gallery.length;
-
-	if (len === 0) return null;
-
-	if (len < 3) {
-		return (
-			<div className="relative w-full h-[100vh] pr-20 flex items-center">
-				<div className="absolute top-0 left-0 w-full h-[250px] bg-gradient-to-b from-black from-20% to-transparent z-10 pointer-events-none"></div>
-				<div className="absolute bottom-0 left-0 w-full h-[250px] bg-gradient-to-t from-black from-20% to-transparent z-10 pointer-events-none"></div>
-				<div className="relative w-full h-[80%] items-center justify-center flex flex-col gap-4">
-					{loadedImgCount < len && (
-						<div className="absolute left-0 top-0 h-full w-full flex items-center justify-center animate-pulse">
-							<span>Loading</span>
-						</div>
-					)}
-					{gallery.map((photo) => {
-						return (
-							<div
-								key={photo.path}
-								className="relative h-auto w-full flex items-center justify-center py-2"
-							>
-								<ImageEnterTransition
-									photo={photo}
-									className="relative w-2/3 object-cover z-10 rounded-lg overflow-hidden"
-									onReady={() =>
-										setLoadedImgCount((count) => count + 1)
-									}
-								/>
-							</div>
-						);
-					})}
-				</div>
-			</div>
-		);
-	}
-
-	let id = 0;
-
-	if (len < 4) {
-		gallery = [...gallery, ...gallery];
-		len *= 2;
-	}
-
-	const listPhotos = (g: typeof gallery) =>
-		g.map((photo) => {
-			return (
-				<div
-					key={photo.path + id++}
-					className="relative h-auto w-full flex items-center justify-center py-2 delay-500"
-				>
-					<ImageEnterTransition
-						photo={photo}
-						className="relative w-full object-cover z-10"
-						onReady={() => setLoadedImgCount((count) => count + 1)}
-					/>
-				</div>
-			);
-		});
-
-	return (
-		<div className="relative w-full h-[100vh] pr-20 grid grid-cols-2 gap-4">
-			<div className="absolute top-0 left-0 w-full h-[250px] bg-gradient-to-b from-black from-20% to-transparent z-10 pointer-events-none"></div>
-			<div className="absolute bottom-0 left-0 w-full h-[250px] bg-gradient-to-t from-black from-20% to-transparent z-10 pointer-events-none"></div>
-			{loadedImgCount < len && (
-				<div className="absolute left-0 top-0 h-full w-full flex items-center justify-center animate-pulse">
-					<span>Loading</span>
-				</div>
-			)}
-			<Slider
-				className="gap-10 !h-full"
-				dots={false}
-				vertical
-				arrows={false}
-				autoplay
-				speed={10000}
-				autoplaySpeed={3000}
-				infinite
-				cssEase="cubic-bezier(0.785, 0.135, 0.15, 0.86)"
-			>
-				{listPhotos(gallery)}
-			</Slider>
-			<Slider
-				className="gap-10"
-				dots={false}
-				vertical
-				arrows={false}
-				autoplay
-				speed={10000}
-				autoplaySpeed={3000}
-				infinite
-				cssEase="cubic-bezier(0.785, 0.135, 0.15, 0.86)"
-				rtl
-			>
-				{listPhotos(gallery)}
-			</Slider>
-		</div>
 	);
 }
 
@@ -180,7 +49,9 @@ export default function ProjectDetails() {
 		setIsMounted(true);
 	}, []);
 
-	const writeDescriptions = ({ title, longDescription }: Project) => {
+	const Descriptions: React.FC = () => {
+		const { title, longDescription } = project;
+
 		if (!longDescription || longDescription.length === 0) return null;
 
 		return longDescription.map((desc, index) => {
@@ -192,7 +63,9 @@ export default function ProjectDetails() {
 		});
 	};
 
-	const listClients = ({ title, clients }: Project) => {
+	const Clients: React.FC = () => {
+		const { title, clients } = project;
+
 		if (!clients || clients.length === 0) return null;
 
 		return clients.map((client, index) => {
@@ -262,11 +135,11 @@ export default function ProjectDetails() {
 					</BoxReveal>
 
 					<div className="absolute top-20 right-20">
-						<Awards isInView={isMounted} {...project} />
+						<ProjectAwards isInView={isMounted} {...project} />
 					</div>
 
 					<BoxReveal delay="delay-150" className="flex gap-2 pt-4">
-						{placeTags(project)}
+						<ProjectTags project={project} />
 					</BoxReveal>
 
 					<BoxReveal delay="delay-200" className="py-4">
@@ -288,7 +161,7 @@ export default function ProjectDetails() {
 							</h2>
 						</BoxReveal>
 						<div className="space-y-2">
-							{writeDescriptions(project)}
+							<Descriptions />
 						</div>
 					</div>
 					<div className="grid grid-cols-2 pt-4">
@@ -299,7 +172,7 @@ export default function ProjectDetails() {
 								</h2>
 							</BoxReveal>
 							<div className="flex space-x-4">
-								{listClients(project)}
+								<Clients />
 							</div>
 						</div>
 						<div className="flex flex-col gap-4">
@@ -308,7 +181,10 @@ export default function ProjectDetails() {
 									Learn more
 								</h2>
 							</BoxReveal>
-							<BoxReveal delay="delay-500" className="flex space-x-2">
+							<BoxReveal
+								delay="delay-500"
+								className="flex space-x-2"
+							>
 								<span>Check my</span> <CVLink />
 								<span>to learn more</span>
 							</BoxReveal>
@@ -316,7 +192,7 @@ export default function ProjectDetails() {
 					</div>
 				</div>
 				<div className="col-span-2">
-					<Gallery {...project} />
+					<ProjectGallery {...project} />
 				</div>
 			</div>
 		</motion.div>
