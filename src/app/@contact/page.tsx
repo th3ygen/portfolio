@@ -1,7 +1,7 @@
-import EmailForm from "@/components/form/EmailForm";
+import EmailForm from "@/components/content/EmailForm";
 import EnterTransition from "@/components/motion/EnterTransition";
 
-export default function Contact() {
+export default async function Contact() {
 	return (
 		<div className="min-h-[70vh] w-full">
 			<h1 className="text-7xl mb-6 uppercase flex-col">

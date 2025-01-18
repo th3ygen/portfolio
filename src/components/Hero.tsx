@@ -9,9 +9,7 @@ import {
 	FaInstagram,
 	FaLinkedin,
 	FaStackOverflow,
-	FaTwitter,
 } from "react-icons/fa";
-import Link from "next/link";
 import BoxReveal from "@/components/motion/BoxReveal";
 import { cn } from "@/lib/utils";
 import {
@@ -26,22 +24,10 @@ import {
 } from "motion/react";
 
 import { Aldrich } from "next/font/google";
+import { BsTwitterX } from "react-icons/bs";
+import ContactButton from "./ContactButton";
 
 const aldrich = Aldrich({ weight: "400" });
-
-export const ContactButton: React.FC<{
-	link: string;
-	children: React.ReactNode;
-}> = ({ link, children }) => {
-	return (
-		<Link
-			href={link}
-			className="flex gap-2 items-center text-xl p-1 dark:text-primary transition duration-300 hover:scale-150"
-		>
-			{children}
-		</Link>
-	);
-};
 
 const Pillar: React.FC<{ className?: string }> = ({ className = "" }) => {
 	const ref = useRef<HTMLDivElement>(null);
@@ -96,6 +82,45 @@ const Pillar: React.FC<{ className?: string }> = ({ className = "" }) => {
 			</div>
 		</motion.div>
 	);
+};
+
+export const contactLinks = [
+	{
+		link: "https://x.com/aideal_syaz",
+		icon: <BsTwitterX />,
+	},
+	{
+		link: "https://github.com/th3ygen",
+		icon: <FaGithub />,
+	},
+	{
+		link: "https://www.linkedin.com/in/aidilsyaz/",
+		icon: <FaLinkedin />,
+	},
+	{
+		link: "https://www.instagram.com/aidil.syaz_/",
+		icon: <FaInstagram />,
+	},
+	{
+		link: "mailto:i.dilsyaz1@gmail.com",
+		icon: <FaEnvelope />,
+	},
+	{
+		link: "https://stackoverflow.com/users/10222642/aidil",
+		icon: <FaStackOverflow />,
+	},
+	{
+		link: "https://dev.to/th3ygen",
+		icon: <FaDev />,
+	},
+];
+
+const generateContacts = () => {
+	return contactLinks.map((contact, index) => (
+		<ContactButton key={index} link={contact.link}>
+			{contact.icon}
+		</ContactButton>
+	));
 };
 
 export default function Hero() {
@@ -165,9 +190,8 @@ export default function Hero() {
 
 			<BoxReveal className="mt-8">
 				<Button
-					variant="outline"
 					size="lg"
-					className="bg-secondary/20"
+					className="text-black/60 dark:text-background dark:bg-primary"
 					onClick={handleContact}
 				>
 					{"Let's"} work together!
@@ -176,27 +200,7 @@ export default function Hero() {
 
 			<BoxReveal className="mt-4" delay="delay-100">
 				<div className="flex gap-2 items-center">
-					<ContactButton link="https://twitter.com/muhd_aidil">
-						<FaTwitter />
-					</ContactButton>
-					<ContactButton link="https://twitter.com/muhd_aidil">
-						<FaGithub />
-					</ContactButton>
-					<ContactButton link="https://twitter.com/muhd_aidil">
-						<FaLinkedin />
-					</ContactButton>
-					<ContactButton link="https://twitter.com/muhd_aidil">
-						<FaInstagram />
-					</ContactButton>
-					<ContactButton link="https://twitter.com/muhd_aidil">
-						<FaEnvelope />
-					</ContactButton>
-					<ContactButton link="https://twitter.com/muhd_aidil">
-						<FaStackOverflow />
-					</ContactButton>
-					<ContactButton link="https://twitter.com/muhd_aidil">
-						<FaDev />
-					</ContactButton>
+					{generateContacts()}
 				</div>
 			</BoxReveal>
 			<Pillar />

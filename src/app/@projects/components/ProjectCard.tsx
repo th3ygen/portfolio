@@ -322,7 +322,7 @@ export default function ProjectCard({
 		<div
 			ref={ref}
 			className={cn(
-				"relative rounded-lg hover:shadow-md bg-secondary/10 dark:bg-secondary/40 duration-300 shadow-gray-800 border-secondary/20 dark:border-secondary/40 border-[1px] h-fit overflow-hidden flex",
+				"relative rounded-lg hover:shadow-md bg-secondary/10 dark:bg-secondary/10 duration-300 shadow-gray-800 border-secondary/20 dark:border-secondary/40 border-[1px] h-fit overflow-hidden flex",
 				className
 			)}
 		>

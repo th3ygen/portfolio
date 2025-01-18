@@ -1,7 +1,6 @@
 import EnterTransition from "@/components/motion/EnterTransition";
-import CareerSnapshots, {
-	CareerSnapshotProps,
-} from "./components/CareerSnapshots";
+import type { CareerSnapshot } from "career";
+import CareerSnapshots from "@/components/content/CareerSnapshots";
 
 const career = [
 	{
@@ -43,7 +42,7 @@ const career = [
 			"Developed a Telegram bot script for notifying elephant intrusions and CERDAS emergencies.",
 			"Produced project documentation including SRS, SDD, user manuals, and UAT.",
 		],
-        className: "scale-150",
+		className: "scale-150",
 	},
 	{
 		role: "Full-stack developer / Founder",
@@ -100,7 +99,7 @@ const career = [
 		width: 60,
 		className: "scale-90",
 	},
-] satisfies CareerSnapshotProps[];
+] satisfies CareerSnapshot[];
 
 export default function Experiences() {
 	return (

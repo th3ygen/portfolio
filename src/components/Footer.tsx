@@ -1,6 +1,7 @@
 "use client";
 
-import { ContactButton } from "./Hero";
+import { BsTwitterX } from "react-icons/bs";
+import ContactButton from "./ContactButton";
 import Logo from "./Logo";
 import {
 	FaDev,
@@ -9,8 +10,44 @@ import {
 	FaInstagram,
 	FaLinkedin,
 	FaStackOverflow,
-	FaTwitter,
 } from "react-icons/fa";
+const contactLinks = [
+	{
+		link: "https://x.com/aideal_syaz",
+		icon: <BsTwitterX />,
+	},
+	{
+		link: "https://github.com/th3ygen",
+		icon: <FaGithub />,
+	},
+	{
+		link: "https://www.linkedin.com/in/aidilsyaz/",
+		icon: <FaLinkedin />,
+	},
+	{
+		link: "https://www.instagram.com/aidil.syaz_/",
+		icon: <FaInstagram />,
+	},
+	{
+		link: "mailto:i.dilsyaz1@gmail.com",
+		icon: <FaEnvelope />,
+	},
+	{
+		link: "https://stackoverflow.com/users/10222642/aidil",
+		icon: <FaStackOverflow />,
+	},
+	{
+		link: "https://dev.to/th3ygen",
+		icon: <FaDev />,
+	},
+];
+const generateContacts = () => {
+	return contactLinks.map((contact, index) => (
+		<ContactButton key={index} link={contact.link}>
+			{contact.icon}
+		</ContactButton>
+	));
+};
 
 export default function Footer() {
 	return (
@@ -18,29 +55,7 @@ export default function Footer() {
 			<div>
 				<Logo />
 			</div>
-			<div className="flex gap-2 items-center">
-				<ContactButton link="https://twitter.com/muhd_aidil">
-					<FaTwitter />
-				</ContactButton>
-				<ContactButton link="https://twitter.com/muhd_aidil">
-					<FaGithub />
-				</ContactButton>
-				<ContactButton link="https://twitter.com/muhd_aidil">
-					<FaLinkedin />
-				</ContactButton>
-				<ContactButton link="https://twitter.com/muhd_aidil">
-					<FaInstagram />
-				</ContactButton>
-				<ContactButton link="https://twitter.com/muhd_aidil">
-					<FaEnvelope />
-				</ContactButton>
-				<ContactButton link="https://twitter.com/muhd_aidil">
-					<FaStackOverflow />
-				</ContactButton>
-				<ContactButton link="https://twitter.com/muhd_aidil">
-					<FaDev />
-				</ContactButton>
-			</div>
+			<div className="flex gap-2 items-center">{generateContacts()}</div>
 			<div className="flex gap-1 items-center">
 				<div className="">
 					Designed and developed by Aidil Syazwan 🗿

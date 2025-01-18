@@ -6,25 +6,9 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import React from "react";
 import EnterTransition from "../motion/EnterTransition";
+import ContactCard from "./ContactCard";
 
 const ACCESS_KEY: string = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "";
-
-type ContactCardProps = {
-	title: string;
-	icon: React.ReactNode;
-	children: React.ReactNode;
-};
-function ContactCard({ title, icon, children }: ContactCardProps) {
-	return (
-		<div className="h-fit grid gap-4 bg-background rounded-lg border-secondary/20 border-2 p-4">
-			<div className="flex items-center gap-4">
-				<div className="dark:text-primary">{icon}</div>
-				<div className="text-xl font-bold ">{title}</div>
-			</div>
-			<div className="text-xs text-accent">{children}</div>
-		</div>
-	);
-}
 
 export default function EmailForm() {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

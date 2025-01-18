@@ -48,14 +48,14 @@ export default function RootLayout({
 							</section>
 							<section
 								id="projects"
-								className="pt-32 mr-52 h-fit"
+								className="pt-32 mr-52 h-fit pb-10"
 							>
 								{projects}
 							</section>
 							<section id="contact" className="pt-32 mr-52">
 								{contact}
 							</section>
-							<section id="footer" className="mr-52">
+							<section id="footer" className="mr-52 pt-20">
 								<Footer />
 							</section>
 						</div>
