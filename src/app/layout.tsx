@@ -5,6 +5,7 @@ import "./globals.css";
 import ThemeProvider from "@/providers/ThemeProvider";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
 /* import RockBottom from "@/components/RockBottom"; */
 
 const inter = Inter({ subsets: ["latin"] });
@@ -38,29 +39,36 @@ export default function RootLayout({
 					enableSystem
 				>
 					<Topbar />
-					<main className="relative flex gap-20 pb-2">
-						<div className="relative w-1/3 z-50">{children}</div>
-						<div className="w-2/3 pl-32 h-full">
-							<section id="about" className="min-h-[100vh]">
-								{about}
-							</section>
-							<section id="experiences" className="pt-32 mr-52">
-								{experiences}
-							</section>
-							<section
-								id="projects"
-								className="pt-32 mr-52 h-fit pb-10"
-							>
-								{projects}
-							</section>
-							<section id="contact" className="pt-32 mr-52">
-								{contact}
-							</section>
-							<section id="footer" className="mr-52 pt-20">
-								<Footer />
-							</section>
-						</div>
-					</main>
+					<TooltipProvider>
+						<main className="relative flex gap-20 pb-2">
+							<div className="relative w-1/3 z-50">
+								{children}
+							</div>
+							<div className="w-2/3 pl-32 h-full">
+								<section id="about" className="min-h-[100vh]">
+									{about}
+								</section>
+								<section
+									id="experiences"
+									className="pt-32 mr-52"
+								>
+									{experiences}
+								</section>
+								<section
+									id="projects"
+									className="pt-32 mr-52 h-fit pb-10"
+								>
+									{projects}
+								</section>
+								<section id="contact" className="pt-32 mr-52">
+									{contact}
+								</section>
+								<section id="footer" className="mr-52 pt-20">
+									<Footer />
+								</section>
+							</div>
+						</main>
+					</TooltipProvider>
 					{/* <RockBottom /> */}
 					<Toaster />
 				</ThemeProvider>

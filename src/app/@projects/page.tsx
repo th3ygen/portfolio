@@ -1,13 +1,7 @@
-"use client";
-
 import EnterTransition from "@/components/motion/EnterTransition";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { useGlobalStore } from "@/stores/useGlobalStore";
-import { AnimatePresence, motion } from "motion/react";
 import type { Project, Client as ProjectClient } from "project";
-import { useRef } from "react";
-import ProjectCard from "./components/ProjectCard";
-import ProjectDetails from "./components/ProjectDetails";
+import ProjectCard from "@/components/content/ProjectCard";
+import ProjectDetails from "@/components/content/ProjectDetails";
 
 const client: Record<string, ProjectClient> = {
 	csm: {
@@ -916,10 +910,7 @@ const projects = [
 	},
 ] satisfies Project[];
 
-export default function Projects() {
-	const { isViewingProject } = useGlobalStore();
-	const ref = useRef<HTMLDivElement>(null);
-
+export default async function Projects() {
 	const ProjectCards: React.FC = () => {
 		return projects.map((project, index) => (
 			<EnterTransition once key={"project-" + index}>
@@ -929,50 +920,42 @@ export default function Projects() {
 	};
 
 	return (
-		<TooltipProvider>
-			<div className="relative w-full h-fit pb-20">
-				<EnterTransition className="delay-75" once>
-					<h1 className="text-4xl font-extrabold mb-6 uppercase dark:text-white">
-						<span className={"text-accent dark:text-primary"}>
-							Projects
-						</span>
-					</h1>
-				</EnterTransition>
-				<EnterTransition className="delay-150 mb-8" once>
-					<p className="leading-7 text-justify">
-						Every project is a chance to solve real-world problems
-						and bring ideas to life. Here are some of the most
-						exciting and impactful projects I’ve worked on, where I
-						got to push boundaries, explore new technologies, and
-						deliver meaningful solutions.
-					</p>
-				</EnterTransition>
-				<motion.div
-					ref={ref}
-					className="relative flex justify-center items-center p-4 w-full h-full border-primary/20 border-2 rounded-xl overflow-hidden"
-					layout
-				>
-					<div className="w-full grid grid-cols-1 gap-y-4 gap-x-2">
-						<ProjectCards />
-					</div>
-					<div className="absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none -z-10"></div>
-				</motion.div>
-
-				<EnterTransition
-					className="absolute bottom-0 left-0 w-full flex justify-center delay-300"
-					once
-				>
-					<span className="text-xs text-foreground">
-						* Most of these projects were built for private networks
-						or proprietary use, so public links aren’t available.
-						However, I’d be happy to discuss the technical details
-						and challenges I tackled!
+		<div className="relative w-full h-fit pb-20">
+			<EnterTransition className="delay-75" once>
+				<h1 className="text-4xl font-extrabold mb-6 uppercase dark:text-white">
+					<span className={"text-accent dark:text-primary"}>
+						Projects
 					</span>
-				</EnterTransition>
-				<AnimatePresence>
-					{isViewingProject && <ProjectDetails />}
-				</AnimatePresence>
+				</h1>
+			</EnterTransition>
+			<EnterTransition className="delay-150 mb-8" once>
+				<p className="leading-7 text-justify">
+					Every project is a chance to solve real-world problems and
+					bring ideas to life. Here are some of the most exciting and
+					impactful projects I’ve worked on, where I got to push
+					boundaries, explore new technologies, and deliver meaningful
+					solutions.
+				</p>
+			</EnterTransition>
+			<div className="relative flex justify-center items-center p-4 w-full h-full border-primary/20 border-2 rounded-xl overflow-hidden">
+				<div className="w-full grid grid-cols-1 gap-y-4 gap-x-2">
+					<ProjectCards />
+				</div>
+				<div className="absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none -z-10"></div>
 			</div>
-		</TooltipProvider>
+
+			<EnterTransition
+				className="absolute bottom-0 left-0 w-full flex justify-center delay-300"
+				once
+			>
+				<span className="text-xs text-foreground">
+					* Most of these projects were built for private networks or
+					proprietary use, so public links aren’t available. However,
+					I’d be happy to discuss the technical details and challenges
+					I tackled!
+				</span>
+			</EnterTransition>
+			<ProjectDetails />
+		</div>
 	);
 }

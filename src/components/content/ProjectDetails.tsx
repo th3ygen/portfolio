@@ -2,7 +2,7 @@
 
 import { useGlobalStore } from "@/stores/useGlobalStore";
 import { useProjectStore } from "@/stores/useProjectStore";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import BoxReveal from "@/components/motion/BoxReveal";
 import Image from "next/image";
 import Link from "next/link";
@@ -35,19 +35,19 @@ function CVLink() {
 	);
 }
 
-export default function ProjectDetails() {
+function Container() {
 	const { setIsViewingProject } = useGlobalStore();
 	const { project, setSelectedProject } = useProjectStore();
 	const [isMounted, setIsMounted] = useState(false);
+
+	useEffect(() => {
+		setIsMounted(true);
+	}, []);
 
 	const handleClose = () => {
 		setIsViewingProject(false);
 		setSelectedProject(-1);
 	};
-
-	useEffect(() => {
-		setIsMounted(true);
-	}, []);
 
 	const Descriptions: React.FC = () => {
 		const { title, longDescription } = project;
@@ -196,5 +196,13 @@ export default function ProjectDetails() {
 				</div>
 			</div>
 		</motion.div>
+	);
+}
+
+export default function ProjectDetails() {
+	const { isViewingProject } = useGlobalStore();
+
+	return (
+		<AnimatePresence>{isViewingProject && <Container />}</AnimatePresence>
 	);
 }

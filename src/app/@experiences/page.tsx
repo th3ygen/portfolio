@@ -101,7 +101,7 @@ const career = [
 	},
 ] satisfies CareerSnapshot[];
 
-export default function Experiences() {
+export default async function Experiences() {
 	return (
 		<div className="w-full h-fit">
 			<EnterTransition className="delay-75" once>

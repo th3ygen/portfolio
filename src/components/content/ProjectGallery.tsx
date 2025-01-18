@@ -24,7 +24,7 @@ export default function ProjectGallery({ gallery }: Project) {
 		);
 	};
 
-	const SmallGallery = () => {
+	const smallGallery = () => {
 		if (!gallery || gallery.length === 0) return null;
 
 		return gallery.map((photo) => {
@@ -50,7 +50,7 @@ export default function ProjectGallery({ gallery }: Project) {
 				<div className="absolute bottom-0 left-0 w-full h-[250px] bg-gradient-to-t from-black from-20% to-transparent z-10 pointer-events-none"></div>
 				<div className="relative w-full h-[80%] items-center justify-center flex flex-col gap-4">
 					<Fallback />
-					<SmallGallery />
+					{smallGallery()}
 				</div>
 			</div>
 		);
@@ -63,9 +63,7 @@ export default function ProjectGallery({ gallery }: Project) {
 		len *= 2;
 	}
 
-	const LargeGallery: React.FC = () => {
-		if (!gallery || gallery.length === 0) return null;
-
+	const largeGallery = () => {
 		return gallery.map((photo) => {
 			return (
 				<div
@@ -98,7 +96,7 @@ export default function ProjectGallery({ gallery }: Project) {
 				infinite
 				cssEase="cubic-bezier(0.785, 0.135, 0.15, 0.86)"
 			>
-				<LargeGallery />
+				{largeGallery()}
 			</Slider>
 			<Slider
 				className="gap-10"
@@ -112,7 +110,7 @@ export default function ProjectGallery({ gallery }: Project) {
 				cssEase="cubic-bezier(0.785, 0.135, 0.15, 0.86)"
 				rtl
 			>
-				<LargeGallery />
+				{largeGallery()}
 			</Slider>
 		</div>
 	);
