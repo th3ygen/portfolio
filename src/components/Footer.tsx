@@ -53,7 +53,7 @@ export default function Footer() {
 			{<Contacts contacts={contacts} />}
 			<div className="flex gap-1 items-center">
 				<div className="">
-					Designed and developed by Aidil Syazwan 🗿
+					Designed and developed by Muhd. Aidil Syazwan bin Hamdan 🗿
 				</div>
 				<div>All rights reserved &copy; {new Date().getFullYear()}</div>
 			</div>

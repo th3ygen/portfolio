@@ -183,7 +183,7 @@ export default function ProjectTags({ project }: ProjectTagsProps) {
 						{tag.icon}
 					</Badge>
 				</TooltipTrigger>
-				<TooltipContent className="relative z-[999] border-2 border-accent/20 bg-background text-secondary dark:bg-secondary dark:text-primary">
+				<TooltipContent className="relative z-[999] border-2 border-accent/20 bg-background text-accent dark:bg-secondary dark:text-primary">
 					{tag.tooltip}
 				</TooltipContent>
 			</Tooltip>

@@ -21,9 +21,9 @@ export function ProjectAwards({
 	if (!awards || awards.length === 0) return null;
 
 	const awardIcons = {
-		gold: <FaMedal className="text-2xl text-yellow-300" size={40} />,
-		silver: <FaMedal className="text-2xl text-gray-300" size={40} />,
-		bronze: <FaMedal className="text-2xl text-yellow-600" size={40} />,
+		gold: <FaMedal className="text-2xl text-orange-300 dark:text-yellow-300" size={40} />,
+		silver: <FaMedal className="text-2xl text-gray-300 dark:text-gray-300" size={40} />,
+		bronze: <FaMedal className="text-2xl text-orange-600 dark:text-yellow-600" size={40} />,
 	};
 
 	const Medals: React.FC = () =>
@@ -41,7 +41,7 @@ export function ProjectAwards({
 						<TooltipTrigger className="cursor-auto">
 							{awardIcons[medal!]}
 						</TooltipTrigger>
-						<TooltipContent className="relative z-[999] dark:bg-secondary text-primary capitalize">
+						<TooltipContent className="relative z-[999] border-2 border-accent/20 bg-background text-accent dark:bg-secondary dark:text-primary capitalize">
 							<span>{`${medal} @${title}`}</span>
 						</TooltipContent>
 					</Tooltip>

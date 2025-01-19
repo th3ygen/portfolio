@@ -94,7 +94,7 @@ export default function ContactForm({ phone, email, area }: ContactFormProps) {
 				<Button type="submit">Notify</Button>
 				<div className="absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none -z-10"></div>
 			</div>
-			<div className="w-full -translate-x-28 flex flex-col justify-center gap-4">
+			<div className="col-span-1 w-full -translate-x-28 flex flex-col justify-center gap-4">
 				<EnterTransition once className="delay-100" direction="left">
 					<ContactCard title="Phone" icon={<FaPhoneAlt size={20} />}>
 						<a href={phone.link || "#"}>{phone.content}</a>

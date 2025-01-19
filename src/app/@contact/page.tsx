@@ -19,9 +19,9 @@ const contact = {
 export default async function Contact() {
 	return (
 		<div className="min-h-[70vh] w-full">
-			<h1 className="text-7xl mb-6 uppercase flex-col">
+			<h1 className="mb-6 uppercase flex-col">
 				<EnterTransition
-					className="delay-150"
+					className="delay-150 text-7xl text-secondary"
 					once
 					direction="left"
 					amount="all"
@@ -33,7 +33,7 @@ export default async function Contact() {
 					once
 					direction="right"
 					amount="all"
-					className={"delay-150 font-extrabold dark:text-primary"}
+					className={"delay-150 text-8xl font-extrabold text-primary"}
 				>
 					great together
 				</EnterTransition>

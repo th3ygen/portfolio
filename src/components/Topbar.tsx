@@ -5,6 +5,7 @@ import Logo from "./Logo";
 import { useScroll, useMotionValueEvent } from "motion/react";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
+import Link from "next/link";
 
 type TopbarProps = {
 	hideTreshold?: number;
@@ -49,10 +50,7 @@ const VerticalNav = ({ show }: { show: boolean }) => {
 			<a
 				key={`vertical-nav-${index}`}
 				onClick={() => scrollTo(nav.target)}
-				className={cn(
-					"py-4 w-28 cursor-pointer transform transition-all duration-300 opacity-0 -translate-y-10",
-					show && "translate-y-0 opacity-100"
-				)}
+				className={cn("py-4 w-28 cursor-pointer")}
 			>
 				{nav.label}
 			</a>
@@ -61,8 +59,16 @@ const VerticalNav = ({ show }: { show: boolean }) => {
 
 	return (
 		<>
-			<nav className="flex flex-col absolute top-12 right-0 pt-4 text-end -z-10">
+			<nav
+				className={cn(
+					"flex flex-col absolute top-8 right-0 pt-4 text-end transform transition-all duration-300 opacity-0 -translate-y-10 -z-10",
+					show && "translate-y-0 opacity-100"
+				)}
+			>
 				{navItems()}
+				<Link href="/docs/cv.pdf" target="_blank" className="text-md py-4">
+					CV
+				</Link>
 			</nav>
 			<div
 				className={cn(
@@ -99,7 +105,17 @@ const Topbar: React.FC = ({ hideTreshold = 800 }: TopbarProps) => {
 	};
 
 	return (
-		<div className="fixed top-0 left-0 w-full flex justify-between items-center p-6 px-14 bg-background z-40">
+		<div
+			className={cn(
+				"fixed top-0 left-0 w-full flex justify-between items-center p-6 px-14 z-40"
+			)}
+		>
+			<div
+				className={cn(
+					"absolute left-0 top-0 w-full h-full bg-background duration-300 -translate-y-0 opacity-100",
+					isHidden && "-translate-y-12 opacity-0"
+				)}
+			></div>
 			<Logo />
 			<div className="flex gap-8 items-center">
 				<nav
@@ -109,6 +125,13 @@ const Topbar: React.FC = ({ hideTreshold = 800 }: TopbarProps) => {
 					)}
 				>
 					<Navs />
+					<Link
+						href="/docs/cv.pdf"
+						target="_blank"
+						className="text-md"
+					>
+						CV
+					</Link>
 				</nav>
 				<div className="relative flex flex-col">
 					<ThemeToggle />
