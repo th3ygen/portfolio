@@ -1,7 +1,6 @@
 "use client";
 
 import { BsTwitterX } from "react-icons/bs";
-import ContactButton from "./ContactButton";
 import Logo from "./Logo";
 import {
 	FaDev,
@@ -11,7 +10,10 @@ import {
 	FaLinkedin,
 	FaStackOverflow,
 } from "react-icons/fa";
-const contactLinks = [
+import Contacts from "./content/Contacts";
+import type { Contact } from "contact";
+
+const contacts = [
 	{
 		link: "https://x.com/aideal_syaz",
 		icon: <BsTwitterX />,
@@ -40,14 +42,7 @@ const contactLinks = [
 		link: "https://dev.to/th3ygen",
 		icon: <FaDev />,
 	},
-];
-const generateContacts = () => {
-	return contactLinks.map((contact, index) => (
-		<ContactButton key={index} link={contact.link}>
-			{contact.icon}
-		</ContactButton>
-	));
-};
+] satisfies Contact[];
 
 export default function Footer() {
 	return (
@@ -55,7 +50,7 @@ export default function Footer() {
 			<div>
 				<Logo />
 			</div>
-			<div className="flex gap-2 items-center">{generateContacts()}</div>
+			{<Contacts contacts={contacts} />}
 			<div className="flex gap-1 items-center">
 				<div className="">
 					Designed and developed by Aidil Syazwan 🗿

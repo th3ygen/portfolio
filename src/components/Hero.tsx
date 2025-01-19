@@ -1,7 +1,19 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import BoxReveal from "@/components/motion/BoxReveal";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import {
+	motion,
+	useInView,
+	useMotionValue,
+	useMotionValueEvent,
+	useScroll,
+	useSpring,
+	useTransform,
+	useVelocity,
+} from "motion/react";
+import React, { useEffect, useRef, useState } from "react";
 import {
 	FaDev,
 	FaEnvelope,
@@ -10,22 +22,10 @@ import {
 	FaLinkedin,
 	FaStackOverflow,
 } from "react-icons/fa";
-import BoxReveal from "@/components/motion/BoxReveal";
-import { cn } from "@/lib/utils";
-import {
-	motion,
-	useInView,
-	useVelocity,
-	useScroll,
-	useMotionValue,
-	useSpring,
-	useTransform,
-	useMotionValueEvent,
-} from "motion/react";
 
 import { Aldrich } from "next/font/google";
 import { BsTwitterX } from "react-icons/bs";
-import ContactButton from "./ContactButton";
+import Contacts from "./content/Contacts";
 
 const aldrich = Aldrich({ weight: "400" });
 
@@ -51,6 +51,23 @@ const Pillar: React.FC<{ className?: string }> = ({ className = "" }) => {
 		y.set(value);
 	});
 
+	const Shadows: React.FC<{ n: number }> = ({ n }) => {
+		return [...Array(n)].map((_, index) => (
+			<div
+				key={index}
+				className={cn(
+					`absolute left-0 w-full bg-primary duration-1000 delay-300 -translate-y-20`,
+					isInView && "translate-y-0"
+				)}
+				style={{
+					height: `${10 / (index + 1)}px`,
+					bottom: `${200 - (index + 1) * 8 - 2}px`,
+					opacity: `${1 / (index + 1)}`,
+				}}
+			></div>
+		));
+	};
+
 	return (
 		<motion.div
 			ref={ref}
@@ -65,26 +82,13 @@ const Pillar: React.FC<{ className?: string }> = ({ className = "" }) => {
 				)}
 			>
 				<div className="relative w-full h-[calc(100%_-_200px)] bg-primary"></div>
-				{[...Array(15)].map((_, index) => (
-					<div
-						key={index}
-						className={cn(
-							`absolute left-0 w-full bg-primary duration-1000 delay-300 -translate-y-20`,
-							isInView && "translate-y-0"
-						)}
-						style={{
-							height: `${10 / (index + 1)}px`,
-							bottom: `${200 - (index + 1) * 8 - 2}px`,
-							opacity: `${1 / (index + 1)}`,
-						}}
-					></div>
-				))}
+				<Shadows n={15} />
 			</div>
 		</motion.div>
 	);
 };
 
-export const contactLinks = [
+export const contacts = [
 	{
 		link: "https://x.com/aideal_syaz",
 		icon: <BsTwitterX />,
@@ -114,14 +118,6 @@ export const contactLinks = [
 		icon: <FaDev />,
 	},
 ];
-
-const generateContacts = () => {
-	return contactLinks.map((contact, index) => (
-		<ContactButton key={index} link={contact.link}>
-			{contact.icon}
-		</ContactButton>
-	));
-};
 
 export default function Hero() {
 	const [expYears, setExpYears] = useState(0);
@@ -200,7 +196,7 @@ export default function Hero() {
 
 			<BoxReveal className="mt-4" delay="delay-100">
 				<div className="flex gap-2 items-center">
-					{generateContacts()}
+					<Contacts contacts={contacts} />
 				</div>
 			</BoxReveal>
 			<Pillar />

@@ -1,12 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { FaSun, FaMoon } from "react-icons/fa";
-import { Button } from "./ui/button";
+import React, { useState } from "react";
 import Logo from "./Logo";
-import { useTheme } from "next-themes";
 import { useScroll, useMotionValueEvent } from "motion/react";
 import { cn } from "@/lib/utils";
+import ThemeToggle from "./ThemeToggle";
 
 type TopbarProps = {
 	hideTreshold?: number;
@@ -45,43 +43,26 @@ const scrollTo = (target: string) => {
 	}
 };
 
-const ThemeToggle: React.FC = () => {
-	const { theme, setTheme } = useTheme();
-	const [isMounted, setIsMounted] = useState(false);
-
-	useEffect(() => {
-		setIsMounted(true);
-	}, []);
-
-	const toggleTheme = () => {
-		setTheme(theme === "light" ? "dark" : "light");
+const VerticalNav = ({ show }: { show: boolean }) => {
+	const navItems = () => {
+		return navs.map((nav, index) => (
+			<a
+				key={`vertical-nav-${index}`}
+				onClick={() => scrollTo(nav.target)}
+				className={cn(
+					"py-4 w-28 cursor-pointer transform transition-all duration-300 opacity-0 -translate-y-10",
+					show && "translate-y-0 opacity-100"
+				)}
+			>
+				{nav.label}
+			</a>
+		));
 	};
 
-	if (!isMounted) return <Button className="px-6"></Button>;
-
-	return (
-		<Button onClick={toggleTheme}>
-			{theme === "dark" ? <FaMoon /> : <FaSun />}
-		</Button>
-	);
-};
-
-const VerticalNav = ({ show }: { show: boolean }) => {
 	return (
 		<>
 			<nav className="flex flex-col absolute top-12 right-0 pt-4 text-end -z-10">
-				{navs.map((nav, index) => (
-					<a
-						key={`vertical-nav-${index}`}
-						onClick={() => scrollTo(nav.target)}
-						className={cn(
-							"py-4 w-28 cursor-pointer transform transition-all duration-300 opacity-0 -translate-y-10",
-							show && "translate-y-0 opacity-100"
-						)}
-					>
-						{nav.label}
-					</a>
-				))}
+				{navItems()}
 			</nav>
 			<div
 				className={cn(
@@ -105,6 +86,18 @@ const Topbar: React.FC = ({ hideTreshold = 800 }: TopbarProps) => {
 		setIsHidden(latest > hideTreshold);
 	});
 
+	const Navs: React.FC = () => {
+		return navs.map((nav, index) => (
+			<a
+				className="cursor-pointer"
+				key={`horizontal-nav-${index}`}
+				onClick={() => scrollTo(nav.target)}
+			>
+				{nav.label}
+			</a>
+		));
+	};
+
 	return (
 		<div className="fixed top-0 left-0 w-full flex justify-between items-center p-6 px-14 bg-background z-40">
 			<Logo />
@@ -115,15 +108,7 @@ const Topbar: React.FC = ({ hideTreshold = 800 }: TopbarProps) => {
 						isHidden && "-translate-y-20"
 					)}
 				>
-					{navs.map((nav, index) => (
-						<a
-							className="cursor-pointer"
-							key={`horizontal-nav-${index}`}
-							onClick={() => scrollTo(nav.target)}
-						>
-							{nav.label}
-						</a>
-					))}
+					<Navs />
 				</nav>
 				<div className="relative flex flex-col">
 					<ThemeToggle />

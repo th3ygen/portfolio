@@ -8,7 +8,7 @@ import React from "react";
 import EnterTransition from "../motion/EnterTransition";
 import ContactCard from "./ContactCard";
 import { useToast } from "@/hooks/use-toast";
-import type { Contact } from "contact";
+import type { ContactCardType } from "contact";
 
 const ACCESS_KEY: string = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "";
 
@@ -23,9 +23,9 @@ const RANDOM_TOASTS = [
 ];
 
 type ContactFormProps = {
-	phone: Contact;
-	email: Contact;
-	area: Contact;
+	phone: ContactCardType;
+	email: ContactCardType;
+	area: ContactCardType;
 };
 
 export default function ContactForm({ phone, email, area }: ContactFormProps) {

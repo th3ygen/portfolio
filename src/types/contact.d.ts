@@ -1,6 +1,11 @@
 declare module "contact" {
-    type Contact = {
+    export type Contact = {
 		link?: string;
-		content: string;
+		icon: React.ReactNode;
 	};
+
+	export type ContactCardType = {
+		link: string;
+		content: string;
+	}
 }
