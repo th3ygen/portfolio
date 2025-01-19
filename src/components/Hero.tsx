@@ -143,11 +143,11 @@ export default function Hero() {
 	};
 
 	return (
-		<div className="h-fit pl-20">
-			<BoxReveal className="mb-8">
+		<div className="h-fit px-8 lg:pl-20 flex flex-col justify-center items-center md:items-start gap-2 pb-20 lg:pb-0">
+			<BoxReveal className="mb-2 md:mb-8">
 				<div
 					className={cn(
-						"text-4xl font-bold text-accent",
+						"text-2xl md:text-4xl text-center md:text-left font-bold text-accent w-full",
 						aldrich.className
 					)}
 				>
@@ -155,17 +155,17 @@ export default function Hero() {
 				</div>
 			</BoxReveal>
 			<BoxReveal delay="delay-100">
-				<div className="text-7xl font-bold text-primary drop-shadow-[0_0px_.5px_rgba(0,0,0,1)] hover:scale-125 duration-300">
-					MUHD. AIDIL{" "}
+				<div className="text-5xl md:text-7xl font-bold text-primary drop-shadow-[0_0px_.5px_rgba(0,0,0,1)] hover:scale-125 duration-300">
+					MUHD AIDIL
 				</div>
 			</BoxReveal>
 			<BoxReveal delay="delay-300">
-				<span className="text-7xl font-bold [letter-spacing:12.7px]">
+				<span className="text-5xl md:text-7xl font-bold [letter-spacing:7px] md:[letter-spacing:12.7px]">
 					SYAZWAN
 				</span>
 			</BoxReveal>
 			<BoxReveal className="mt-2" delay="delay-500">
-				<div className="text-lg [letter-spacing:.2px]">
+				<div className="text-sm md:text-lg [letter-spacing:.2px]">
 					<span className="">or you could call me </span>
 					<span className="font-bold text-primary bg-black dark:bg-primary dark:text-black px-1 rounded">
 						Dil
@@ -175,7 +175,7 @@ export default function Hero() {
 				</div>
 			</BoxReveal>
 
-			<BoxReveal className="mt-8 flex flex-col">
+			<BoxReveal className="mt-14 md:mt-8 flex flex-col text-center md:text-left">
 				<div className="text-2xl text-accent font-bold">
 					Full-stack Developer
 				</div>
@@ -199,7 +199,7 @@ export default function Hero() {
 					<Contacts contacts={contacts} />
 				</div>
 			</BoxReveal>
-			<Pillar />
+			<Pillar className="hidden xl:block" />
 		</div>
 	);
 }

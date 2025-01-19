@@ -9,6 +9,7 @@ import Link from "next/link";
 
 type TopbarProps = {
 	hideTreshold?: number;
+	className?: string
 };
 
 const navs: Array<{ label: string; target: string }> = [
@@ -84,7 +85,7 @@ const VerticalNav = ({ show }: { show: boolean }) => {
 	);
 };
 
-const Topbar: React.FC = ({ hideTreshold = 800 }: TopbarProps) => {
+const Topbar: React.FC<TopbarProps> = ({ hideTreshold = 800, className = "" }) => {
 	const { scrollY } = useScroll();
 	const [isHidden, setIsHidden] = useState(false);
 
@@ -107,7 +108,8 @@ const Topbar: React.FC = ({ hideTreshold = 800 }: TopbarProps) => {
 	return (
 		<div
 			className={cn(
-				"fixed top-0 left-0 w-full flex justify-between items-center p-6 px-14 z-40"
+				"fixed top-0 left-0 w-full flex justify-between items-center p-6 px-14 z-40",
+				className
 			)}
 		>
 			<div
