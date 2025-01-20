@@ -114,7 +114,7 @@ const Topbar: React.FC<TopbarProps> = ({ hideTreshold = 800, className = "" }) =
 		>
 			<div
 				className={cn(
-					"absolute left-0 top-0 w-full h-full bg-background duration-300 -translate-y-0 opacity-100",
+					"absolute left-0 top-0 w-full h-full bg-background duration-300 -translate-y-0 opacity-100 pointer-events-none",
 					isHidden && "-translate-y-12 opacity-0"
 				)}
 			></div>

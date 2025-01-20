@@ -35,7 +35,7 @@ export default function ProjectGallery({ gallery }: Project) {
 				>
 					<ImageTransition
 						photo={photo}
-						className="relative w-2/3 object-cover z-10 rounded-lg overflow-hidden"
+						className="relative w-full object-cover z-10 rounded-lg overflow-hidden"
 						onReady={() => setLoadedImgCount((count) => count + 1)}
 					/>
 				</div>
@@ -45,9 +45,8 @@ export default function ProjectGallery({ gallery }: Project) {
 
 	if (len < 3) {
 		return (
-			<div className="relative w-full h-[100vh] pr-20 flex items-center">
-				<div className="absolute top-0 left-0 w-full h-[250px] bg-gradient-to-b from-black from-20% to-transparent z-10 pointer-events-none"></div>
-				<div className="absolute bottom-0 left-0 w-full h-[250px] bg-gradient-to-t from-black from-20% to-transparent z-10 pointer-events-none"></div>
+			<div className="relative w-full h-full pr-20 flex items-center">
+				
 				<div className="relative w-full h-[80%] items-center justify-center flex flex-col gap-4">
 					<Fallback />
 					{smallGallery()}
@@ -81,10 +80,9 @@ export default function ProjectGallery({ gallery }: Project) {
 	};
 
 	return (
-		<div className="relative w-full h-[100vh] pr-20 grid grid-cols-2 gap-4">
-			<div className="absolute top-0 left-0 w-full h-[250px] bg-gradient-to-b from-black from-20% to-transparent z-10 pointer-events-none"></div>
-			<div className="absolute bottom-0 left-0 w-full h-[250px] bg-gradient-to-t from-black from-20% to-transparent z-10 pointer-events-none"></div>
-			<Fallback />
+		<div className="relative w-full h-full pr-20 grid grid-cols-2 gap-4">
+			
+			{/* <Fallback /> */}
 			<Slider
 				className="gap-10 !h-full"
 				dots={false}

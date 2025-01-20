@@ -66,4 +66,30 @@
 		-webkit-overflow-scrolling: touch;
 		scrollbar-width: none;
 	}
+
+	* {
+		--sb-track-color: #232e33;
+		--sb-thumb-color: #6baf8d;
+		--sb-size: 14px;
+	}
+
+	*::-webkit-scrollbar {
+		width: 8px
+	}
+
+	*::-webkit-scrollbar-track {
+		background: #00000000;
+		border-radius: 3px;
+	}
+
+	*::-webkit-scrollbar-thumb {
+		background: hsl(var(--primary));
+		border-radius: 3px;
+	}
+
+	@supports not selector(::-webkit-scrollbar) {
+		* {
+			scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+		}
+	}
 }

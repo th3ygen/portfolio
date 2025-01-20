@@ -1,13 +1,14 @@
 "use client";
 
 import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import type { Project } from "project";
 import { FaMedal } from "react-icons/fa";
+import { motion } from "motion/react";
 
 type ProjectAwardsProps = {
 	isInView: boolean;
@@ -21,9 +22,24 @@ export function ProjectAwards({
 	if (!awards || awards.length === 0) return null;
 
 	const awardIcons = {
-		gold: <FaMedal className="text-2xl text-orange-300 dark:text-yellow-300" size={40} />,
-		silver: <FaMedal className="text-2xl text-gray-300 dark:text-gray-300" size={40} />,
-		bronze: <FaMedal className="text-2xl text-orange-600 dark:text-yellow-600" size={40} />,
+		gold: (
+			<FaMedal
+				className="text-2xl text-orange-300 dark:text-yellow-300"
+				size={40}
+			/>
+		),
+		silver: (
+			<FaMedal
+				className="text-2xl text-gray-300 dark:text-gray-300"
+				size={40}
+			/>
+		),
+		bronze: (
+			<FaMedal
+				className="text-2xl text-orange-600 dark:text-yellow-600"
+				size={40}
+			/>
+		),
 	};
 
 	const Medals: React.FC = () =>
@@ -50,8 +66,10 @@ export function ProjectAwards({
 		});
 
 	return (
-		<div className="absolute top-0 right-0 flex gap-2">
-			<Medals />
+		<div className="absolute top-0 right-0">
+			<motion.div layoutId={`project-awards-${projectTitle}`} className="flex gap-2">
+				<Medals />
+			</motion.div>
 		</div>
 	);
 }

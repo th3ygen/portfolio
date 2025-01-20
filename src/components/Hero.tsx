@@ -175,7 +175,7 @@ export default function Hero() {
 				</div>
 			</BoxReveal>
 
-			<BoxReveal className="mt-14 md:mt-8 flex flex-col text-center md:text-left">
+			<BoxReveal className="mt-10 md:mt-8 flex flex-col text-center md:text-left">
 				<div className="text-2xl text-accent font-bold">
 					Full-stack Developer
 				</div>

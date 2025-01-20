@@ -40,32 +40,32 @@ export default function RootLayout({
 				>
 					<Topbar className="hidden lg:flex" />
 					<TooltipProvider>
-						<main className="relative flex flex-col lg:flex-row gap-20 pb-2">
+						<main className="relative flex flex-col lg:flex-row lg:gap-20 pb-2">
 							<div className="relative w-full h-full lg:w-1/3 z-50">
 								{children}
 							</div>
-							<div className="w-full lg:w-2/3 pl-32 h-full">
-								<section id="about" className="min-h-[100vh]">
+							<div className="w-full lg:w-2/3 lg:pl-32 lg:pr-0 h-full">
+								<section id="about" className="min-h-[100dvh]">
 									{about}
 								</section>
-								<section
+								{/* <section
 									id="experiences"
 									className="pt-32 mr-52"
 								>
 									{experiences}
-								</section>
+								</section> */}
 								<section
 									id="projects"
-									className="pt-32 mr-52 h-fit pb-10"
+									className="pt-0 lg:pt-32 lg:mr-52 h-fit pb-10"
 								>
 									{projects}
 								</section>
-								<section id="contact" className="pt-32 mr-52">
+								{/* <section id="contact" className="pt-32 mr-52">
 									{contact}
 								</section>
 								 <section id="footer" className="mr-52 pt-20">
 									<Footer />
-								</section>
+								</section> */}
 							</div>
 						</main>
 					</TooltipProvider>

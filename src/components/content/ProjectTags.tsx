@@ -1,26 +1,31 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import type { Project, ProjectTag, ProjectTagName } from "project";
 import { CiGlobe } from "react-icons/ci";
-import { FaAward, FaBrain, FaCog, FaCreditCard, FaFileCode, FaMapMarkedAlt, FaSearch, FaShieldAlt } from "react-icons/fa";
+import {
+	FaAward,
+	FaBrain,
+	FaCog,
+	FaCreditCard,
+	FaFileCode,
+	FaMapMarkedAlt,
+	FaSearch,
+	FaShieldAlt,
+} from "react-icons/fa";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { IoCloud } from "react-icons/io5";
 import {
-    MdBuild,
-    MdBusiness,
-    MdDeleteForever,
-    MdOutlineAutorenew,
-    MdScience,
-    MdTimer,
+	MdBuild,
+	MdBusiness,
+	MdDeleteForever,
+	MdOutlineAutorenew,
+	MdScience,
+	MdTimer,
 } from "react-icons/md";
 import { RiLock2Line } from "react-icons/ri";
+import { Tooltip } from "react-tooltip";
 
 export const tags: Record<string, ProjectTag> = {
 	pnc: {
@@ -165,28 +170,32 @@ type ProjectTagsProps = {
 
 export default function ProjectTags({ project }: ProjectTagsProps) {
 	if (!project.tags || project.tags.length === 0) return null;
-    
-    return order.map((tagId) => {
+
+	const id = project.title.replaceAll(" ", "-");
+
+	return order.map((tagId) => {
 		if (!project.tags!.includes(tagId)) return null;
 
 		const tag = tags[tagId];
 		return (
-			<Tooltip key={project.title + "-tag-" + tag.name} delayDuration={0}>
-				<TooltipTrigger className="cursor-auto">
-					<Badge
-						className={cn(
-							"bg-transparent border-accent p-[6px]",
-							tag.color
-						)}
-						variant="outline"
-					>
-						{tag.icon}
-					</Badge>
-				</TooltipTrigger>
-				<TooltipContent className="relative z-[999] border-2 border-accent/20 bg-background text-accent dark:bg-secondary dark:text-primary">
+			<div key={id + "-tag-" + tag.name}>
+				<Badge
+					id={`${id}-tag-${tagId}`}
+					className={cn(
+						"w-fit p-1 rounded-lg border-accent",
+						tag.color
+					)}
+					variant="outline"
+				>
+					<span>{tag.icon}</span>
+				</Badge>
+				<Tooltip
+					anchorSelect={`#${id}-tag-${tagId}`}
+					className="relative z-[999] text-wrap max-w-40 lg:max-w-full border-2 border-accent/20 bg-background text-accent dark:bg-secondary dark:text-primary !px-2 !py-1 !text-xs"
+				>
 					{tag.tooltip}
-				</TooltipContent>
-			</Tooltip>
+				</Tooltip>
+			</div>
 		);
 	});
 }

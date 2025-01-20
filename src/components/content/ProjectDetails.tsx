@@ -2,25 +2,20 @@
 
 import { useGlobalStore } from "@/stores/useGlobalStore";
 import { useProjectStore } from "@/stores/useProjectStore";
-import { AnimatePresence, motion } from "motion/react";
-import BoxReveal from "@/components/motion/BoxReveal";
+import { AnimatePresence, motion, useInView } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { MdOutlineClose } from "react-icons/md";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ProjectAwards } from "./ProjectAwards";
 import ProjectTags from "./ProjectTags";
 import ProjectGallery from "./ProjectGallery";
+import { cn } from "@/lib/utils";
+import { useOutsideClick } from "@/hooks/use-outside-click";
 
 const CV_PATH = process.env.NEXT_PUBLIC_CV_PATH;
-
-function Overlay() {
-	return (
-		<div className="absolute top-0 left-0 w-full h-full  bg-black/90 backdrop-blur-lg"></div>
-	);
-}
 
 function CVLink() {
 	return (
@@ -36,9 +31,35 @@ function CVLink() {
 }
 
 function Container() {
+	const ref = useRef<HTMLDivElement>(null);
 	const { setIsViewingProject } = useGlobalStore();
 	const { project, setSelectedProject } = useProjectStore();
 	const [isMounted, setIsMounted] = useState(false);
+	const bottomRef = useRef<HTMLDivElement>(null);
+	const hasHitBottom = useInView(bottomRef, {
+		amount: "all",
+	});
+
+	useOutsideClick(ref, () => {
+		setIsViewingProject(false);
+		setSelectedProject(-1);
+	});
+
+	// on esc press
+	useEffect(() => {
+		const listener = (event: KeyboardEvent) => {
+			if (event.key === "Escape") {
+				setIsViewingProject(false);
+				setSelectedProject(-1);
+			}
+		};
+
+		document.addEventListener("keydown", listener);
+
+		return () => {
+			document.removeEventListener("keydown", listener);
+		};
+	}, [setIsViewingProject, setSelectedProject]);
 
 	useEffect(() => {
 		setIsMounted(true);
@@ -56,9 +77,9 @@ function Container() {
 
 		return longDescription.map((desc, index) => {
 			return (
-				<BoxReveal key={title + index} delay="delay-300">
-					<p className="text-justify leading-8">{desc}</p>
-				</BoxReveal>
+				<p key={title + index} className="text-justify lg:leading-8">
+					{desc}
+				</p>
 			);
 		});
 	};
@@ -70,9 +91,8 @@ function Container() {
 
 		return clients.map((client, index) => {
 			return (
-				<BoxReveal
+				<div
 					key={title + "-client-" + index}
-					delay="delay-500"
 					className="flex flex-col justify-between group gap-2"
 				>
 					<div className="h-[80px] flex items-center justify-center rounded-md group-hover:bg-white hover:scale-110 duration-300 cursor-pointer">
@@ -91,7 +111,7 @@ function Container() {
 					<div className="text-center text-lg font-bold opacity-0 -translate-y-5 group-hover:opacity-100 group-hover:translate-y-1 duration-700">
 						{client.shortName}
 					</div>
-				</BoxReveal>
+				</div>
 			);
 		});
 	};
@@ -102,26 +122,48 @@ function Container() {
 
 	return (
 		<motion.div
-			className="fixed top-0 left-0 w-[100vw] h-[100vh] z-50 overflow-hidden"
+			className="fixed top-0 left-0 w-[100vw] h-[100vh] flex items-center justify-center z-50 overflow-hidden"
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 		>
-			<Overlay />
-			{/* close button */}
-			<Button
-				className="fixed top-0 right-0 p-4 m-4 z-50 flex items-center"
-				variant="ghost"
-				onClick={handleClose}
+			<div className="absolute top-0 left-0 w-full h-full  bg-black/40 backdrop-blur-sm"></div>
+
+			<motion.div
+				ref={ref}
+				className="relative z-10 max-w-full lg:max-w-7xl h-full lg:h-5/6 grid grid-cols-1 lg:grid-cols-5 bg-black overflow-hidden rounded-lg"
+				layoutId={`project-container-${project.title}`}
 			>
-				<MdOutlineClose className="text-5xl" />
-				<span>Close</span>
-			</Button>
-			<div className="relative z-10 w-full h-full grid grid-cols-5">
-				<div className="relative col-span-3 w-full h-full p-20 space-y-2">
-					<BoxReveal
-						delay="delay-100"
+				{/* close button */}
+				<Button
+					className="absolute top-0 right-0 p-4 m-4 z-50 flex items-center"
+					variant="ghost"
+					onClick={handleClose}
+				>
+					<MdOutlineClose className="text-5xl" />
+					<span>Close</span>
+				</Button>
+
+				{/* image overlay */}
+				<div className="absolute left-0 top-0 w-full h-full z-0 opacity-15">
+					<Image alt={project.title} src={project.image} height={768} width={1024} className="w-full h-full object-cover" />
+				</div>
+				<div className="absolute top-0 left-0 w-full h-[50px] bg-gradient-to-b from-black from-20% to-transparent z-10 pointer-events-none"></div>
+				<div className="absolute bottom-0 left-0 w-full h-[150px] bg-gradient-to-t from-black from-20% to-transparent z-10 pointer-events-none"></div>
+				<div className="absolute left-0 bottom-0 w-full lg:w-3/5 h-[150px] flex items-center justify-center pt-20 z-10 pointer-events-none">
+					<div
+						className={cn(
+							"text-primary animate-bounce opacity-100 transition-opacity",
+							hasHitBottom && "opacity-0"
+						)}
+					>
+						Scroll down
+					</div>
+				</div>
+				<div className="relative col-span-3 w-full h-full pt-14 p-8 lg:p-20 space-y-2 overflow-y-scroll no-scrollbar pb-32">
+					<motion.div
 						className="flex flex-col space-y-1"
+						layoutId={`project-title-${project.title}`}
 					>
 						<h1 className="text-5xl text-white uppercase font-bold tracking-widest">
 							{project.title}
@@ -132,17 +174,20 @@ function Container() {
 								{project.longTitle}
 							</span>
 						</div>
-					</BoxReveal>
+					</motion.div>
 
-					<div className="absolute top-20 right-20">
+					<div className="absolute top-[54px] right-10 lg:top-20 lg:right-20" >
 						<ProjectAwards isInView={isMounted} {...project} />
 					</div>
 
-					<BoxReveal delay="delay-150" className="flex gap-2 pt-4">
+					<motion.div
+						className="flex gap-2 pt-4"
+						layoutId={`project-tags-${project.title}`}
+					>
 						<ProjectTags project={project} />
-					</BoxReveal>
+					</motion.div>
 
-					<BoxReveal delay="delay-200" className="py-4">
+					<div className="py-4">
 						<div className="text-accent">
 							<span>Contributed as a </span>
 							<span className="font-bold">{project.role}</span>,
@@ -152,49 +197,49 @@ function Container() {
 							</span>{" "}
 							technologies
 						</div>
-					</BoxReveal>
+					</div>
 
 					<div className="flex flex-col">
-						<BoxReveal delay="delay-300" className="mb-2">
+						<div className="mb-2">
 							<h2 className="text-primary font-bold text-lg">
 								A little bit about the project
 							</h2>
-						</BoxReveal>
-						<div className="space-y-2">
-							<Descriptions />
 						</div>
+						<motion.div
+							className="space-y-2"
+							layoutId={`project-description-${project.title}`}
+						>
+							<Descriptions />
+						</motion.div>
 					</div>
-					<div className="grid grid-cols-2 pt-4">
+					<div ref={bottomRef} className="grid pt-4">
 						<div className="flex flex-col">
-							<BoxReveal delay="delay-500" className="mb-2">
+							<div className="mb-2">
 								<h2 className="text-primary font-bold text-lg">
 									Stakeholders
 								</h2>
-							</BoxReveal>
+							</div>
 							<div className="flex space-x-4">
 								<Clients />
 							</div>
 						</div>
 						<div className="flex flex-col gap-4">
-							<BoxReveal delay="delay-500" className="mb-2">
+							<div className="mb-2">
 								<h2 className="text-primary font-bold text-lg">
 									Learn more
 								</h2>
-							</BoxReveal>
-							<BoxReveal
-								delay="delay-500"
-								className="flex space-x-2"
-							>
+							</div>
+							<div className="flex space-x-2">
 								<span>Check my</span> <CVLink />
 								<span>to learn more</span>
-							</BoxReveal>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="col-span-2">
+				<div className="hidden lg:block relative col-span-2 h-full">
 					<ProjectGallery {...project} />
 				</div>
-			</div>
+			</motion.div>
 		</motion.div>
 	);
 }

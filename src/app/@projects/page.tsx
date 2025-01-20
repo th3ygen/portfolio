@@ -221,7 +221,7 @@ const projects = [
 		title: "CAM Muka",
 		longTitle: "Real-time Inmates Facial Recognition and People Counting",
 		description:
-			"CAM Muka transforms security at Penjara Kajang with real-time facial recognition and people counting, integrating seamlessly with MyGov*Net for efficient monitoring and alerts.",
+			"CAM Muka transforms security at Penjara Kajang with real-time facial recognition and people counting, integrating seamlessly with bridging network for efficient monitoring and alerts.",
 		longDescription: [
 			"CAM Muka is an advanced system developed specifically for Penjara Kajang to streamline inmate management using real-time facial recognition and people-counting technologies. The system accurately monitors daily traffic, providing detailed insights into inmate movements and facility utilization.",
 			"With its facial recognition capabilities, the platform verifies inmate data in real time, enhancing processes such as hospital admissions and facility transfers. This ensures efficient and secure management of inmate logistics while reducing administrative overhead. CAM Muka delivers a reliable and modern solution tailored to meet the unique needs of Penjara Kajang.",
@@ -389,8 +389,7 @@ const projects = [
 	},
 	{
 		title: "Piping Calc. Tools",
-		longTitle:
-			"ISO 24817-Compliant Piping Material and Repair Calculation Engine",
+		longTitle: "ISO 24817-Compliant Calculation Engine",
 		description:
 			"An ISO-compliant engine for precise piping calculations with real-time workflows, ensuring safety and efficiency.",
 		longDescription: [
@@ -920,9 +919,9 @@ export default async function Projects() {
 	};
 
 	return (
-		<div className="relative w-full h-fit pb-20">
+		<div className="relative w-full p-6 h-fit pb-20">
 			<EnterTransition className="delay-75" once>
-				<h1 className="text-4xl font-extrabold mb-6 uppercase dark:text-white">
+				<h1 className="text-4xl text-center md:text-left font-extrabold mb-6 uppercase dark:text-white">
 					<span className={"text-accent dark:text-primary"}>
 						Projects
 					</span>
@@ -937,18 +936,19 @@ export default async function Projects() {
 					solutions.
 				</p>
 			</EnterTransition>
-			<div className="relative flex justify-center items-center p-4 w-full h-full border-primary/20 border-2 rounded-xl overflow-hidden">
-				<div className="w-full grid grid-cols-1 gap-y-4 gap-x-2">
+			<div className="relative flex justify-center items-center w-full h-full overflow-hidden">
+				<div className="w-full grid grid-cols-1 gap-y-6 lg:gap-y-4">
 					<ProjectCards />
 				</div>
-				<div className="absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none -z-10"></div>
+				{/* <ProjectExpandable projects={projects} /> */}
 			</div>
+			<div className="absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none -z-10"></div>
 
 			<EnterTransition
 				className="absolute bottom-0 left-0 w-full flex justify-center delay-300"
 				once
 			>
-				<span className="text-xs text-foreground">
+				<span className="text-xs text-foreground text-center">
 					* Most of these projects were built for private networks or
 					proprietary use, so public links aren’t available. However,
 					I’d be happy to discuss the technical details and challenges
