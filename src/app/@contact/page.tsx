@@ -21,10 +21,10 @@ export default async function Contact() {
 		<div className="min-h-[70vh] w-full">
 			<h1 className="mb-6 uppercase flex-col">
 				<EnterTransition
-					className="delay-150 text-7xl text-secondary"
+					className="delay-150 text-4xl lg:text-7xl text-secondary text-center lg:text-left"
 					once
 					direction="left"
-					amount="all"
+					amount="some"
 				>
 					Let{"'"}s build something
 				</EnterTransition>
@@ -32,17 +32,19 @@ export default async function Contact() {
 				<EnterTransition
 					once
 					direction="right"
-					amount="all"
-					className={"delay-150 text-8xl font-extrabold text-primary"}
+					amount="some"
+					className={
+						"delay-150 pt-2 lg:pt-0 text-6xl lg:text-8xl font-extrabold text-primary text-center lg:text-left"
+					}
 				>
 					great together
 				</EnterTransition>
 			</h1>
 			<EnterTransition
-				className="delay-300 mb-4"
+				className="delay-300 mb-4 px-8 lg:px-0"
 				once
 				direction="right"
-				amount="all"
+				amount="some"
 			>
 				<p className="leading-7">
 					Whether you{"'"}re looking to collaborate on a project, have

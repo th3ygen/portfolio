@@ -444,10 +444,10 @@ const toolkit: ToolKit = {
 
 export default async function About() {
 	return (
-		<div className="relative h-[100dvh] px-8 lg:px-0 lg:pt-32 w-full grid grid-cols-1 lg:grid-cols-2 gap-18 border-b-4 border-primary overflow-hidden">
+		<div className="relative h-[100vh] px-8 lg:px-0 lg:pt-32 w-full grid grid-cols-1 lg:grid-cols-2 gap-18 border-b-4 border-primary overflow-hidden">
 			<AboutMe className="w-full" toolkit={toolkit} />
-			<div className="h-full w-full flex justify-center items-end">
-				<Avatar className="w-[388px] h-[664px]" toolkit={toolkit}/>
+			<div className="hidden 2xl:flex h-full w-full justify-center items-end">
+				<Avatar className="w-[388px] h-[664px]" toolkit={toolkit} />
 			</div>
 		</div>
 	);

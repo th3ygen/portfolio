@@ -1,6 +1,8 @@
 import { create } from "zustand";
 
 type GlobalStore = {
+	isHeroMounted: boolean;
+	setIsHeroMounted: (value: boolean) => void;
 	isViewingStack: boolean;
 	setIsViewingStack: (value: boolean) => void;
 	isViewingProject: boolean;
@@ -8,6 +10,8 @@ type GlobalStore = {
 };
 
 export const useGlobalStore = create<GlobalStore>((set) => ({
+	isHeroMounted: false,
+	setIsHeroMounted: (value) => set({ isHeroMounted: value }),
 	isViewingStack: false,
 	setIsViewingStack: (value) => set({ isViewingStack: value }),
 	isViewingProject: false,

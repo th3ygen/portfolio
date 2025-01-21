@@ -85,7 +85,7 @@ export default function SnapshotContent({
 		<motion.div
 			key={company}
 			className={cn(
-				"relative grid grid-cols-12 gap-4 pl-4 text-justify z-10"
+				"relative grid grid-cols-12 gap-4 lg:pl-4 text-justify z-10"
 			)}
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}

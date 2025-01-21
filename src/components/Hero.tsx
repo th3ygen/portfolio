@@ -26,6 +26,8 @@ import {
 import { Aldrich } from "next/font/google";
 import { BsTwitterX } from "react-icons/bs";
 import Contacts from "./content/Contacts";
+import { useGlobalStore } from "@/stores/useGlobalStore";
+import Logo from "./Logo";
 
 const aldrich = Aldrich({ weight: "400" });
 
@@ -121,6 +123,7 @@ export const contacts = [
 
 export default function Hero() {
 	const [expYears, setExpYears] = useState(0);
+	const { isHeroMounted, setIsHeroMounted } = useGlobalStore();
 
 	useEffect(() => {
 		const start = new Date("2019-08-01");
@@ -131,9 +134,11 @@ export default function Hero() {
 
 		setExpYears(Math.floor(years));
 
-		return () => {};
-	}, []);
+		setIsHeroMounted(true);
 
+		return () => {};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	const handleContact = () => {
 		const contactEl = document.getElementById("contact");
 
@@ -142,8 +147,8 @@ export default function Hero() {
 		}
 	};
 
-	return (
-		<div className="h-fit px-8 lg:pl-20 flex flex-col justify-center items-center md:items-start gap-2 pb-20 lg:pb-0">
+	const Content = () => (
+		<>
 			<BoxReveal className="mb-2 md:mb-8">
 				<div
 					className={cn(
@@ -175,7 +180,7 @@ export default function Hero() {
 				</div>
 			</BoxReveal>
 
-			<BoxReveal className="mt-10 md:mt-8 flex flex-col text-center md:text-left">
+			<BoxReveal className="mt-4 md:mt-8 flex flex-col text-center md:text-left">
 				<div className="text-2xl text-accent font-bold">
 					Full-stack Developer
 				</div>
@@ -200,6 +205,20 @@ export default function Hero() {
 				</div>
 			</BoxReveal>
 			<Pillar className="hidden xl:block" />
+		</>
+	);
+
+	return (
+		<div className="h-fit px-8 lg:pl-20 flex flex-col justify-center items-center md:items-start gap-2 pb-20 lg:pb-0">
+			<div
+				className={cn(
+					"flex lg:hidden pb-0 opacity-0 duration-500 delay-300 [transition-timing-function:cubic-bezier(0.785,0.135,0.150,0.860)]",
+					isHeroMounted && "opacity-100 pb-10"
+				)}
+			>
+				<Logo />
+			</div>
+			<Content />
 		</div>
 	);
 }

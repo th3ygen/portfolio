@@ -6,6 +6,7 @@ import ThemeProvider from "@/providers/ThemeProvider";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import Splash from "@/components/Splash";
 /* import RockBottom from "@/components/RockBottom"; */
 
 const inter = Inter({ subsets: ["latin"] });
@@ -38,9 +39,11 @@ export default function RootLayout({
 					defaultTheme="dark"
 					enableSystem
 				>
+					<Splash />
 					<Topbar className="hidden lg:flex" />
 					<TooltipProvider>
-						<main className="relative flex flex-col lg:flex-row lg:gap-20 pb-2">
+						<main className="relative flex flex-col lg:flex-row lg:gap-20 pb-2 overflow-x-hidden">
+							{/* <MobileNav className="flex lg:hidden" /> */}
 							<div className="relative w-full h-full lg:w-1/3 z-50">
 								{children}
 							</div>
@@ -48,24 +51,24 @@ export default function RootLayout({
 								<section id="about" className="min-h-[100dvh]">
 									{about}
 								</section>
-								{/* <section
+								<section
 									id="experiences"
-									className="pt-32 mr-52"
+									className="p-8 lg:pt-32 lg:mr-52"
 								>
 									{experiences}
-								</section> */}
+								</section>
 								<section
 									id="projects"
 									className="pt-0 lg:pt-32 lg:mr-52 h-fit pb-10"
 								>
 									{projects}
 								</section>
-								{/* <section id="contact" className="pt-32 mr-52">
+								<section id="contact" className="pt-32 lg:mr-52">
 									{contact}
 								</section>
-								 <section id="footer" className="mr-52 pt-20">
+								 <section id="footer" className="lg:mr-52 lg:pt-20">
 									<Footer />
-								</section> */}
+								</section>
 							</div>
 						</main>
 					</TooltipProvider>

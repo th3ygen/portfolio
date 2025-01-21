@@ -1,6 +1,7 @@
 import EnterTransition from "@/components/motion/EnterTransition";
 import type { CareerSnapshot } from "career";
 import CareerSnapshots from "@/components/content/CareerSnapshots";
+import ExperiencesAccordion from "@/components/content/ExperiencesAccordion";
 
 const career = [
 	{
@@ -62,7 +63,7 @@ const career = [
 	},
 	{
 		role: "Full-stack developer / Research Assistant",
-		company: "Universiti Malaysia Pahang Al-Sultan Abdullah",
+		company: "Universiti Malaysia Pahang SA",
 		address: "Pekan, Pahang",
 		start: new Date("2020-01-01"),
 		end: new Date("2022-12-01"),
@@ -105,7 +106,7 @@ export default async function Experiences() {
 	return (
 		<div className="w-full h-fit">
 			<EnterTransition className="delay-75" once>
-				<h1 className="text-4xl font-extrabold mb-6 uppercase dark:text-white">
+				<h1 className="text-center lg:text-left text-4xl font-extrabold mb-6 uppercase dark:text-white">
 					My Career{" "}
 					<span className={"text-accent dark:text-primary"}>
 						JOURNEY
@@ -113,7 +114,7 @@ export default async function Experiences() {
 				</h1>
 			</EnterTransition>
 			<EnterTransition className="delay-150 mb-8" once>
-				<p className="leading-7">
+				<p className="leading-7 text-justify">
 					My journey as a developer has been a mix of challenging
 					projects, innovative solutions, and continuous growth.
 					Here’s a snapshot of what I’ve built and contributed to over
@@ -121,9 +122,13 @@ export default async function Experiences() {
 				</p>
 			</EnterTransition>
 
-			<EnterTransition className="delay-300" once>
+			<EnterTransition className="hidden lg:block delay-300" once>
 				<CareerSnapshots snapshots={career} />
 			</EnterTransition>
+
+			<div className="block lg:hidden">
+				<ExperiencesAccordion career={career} />
+			</div>
 		</div>
 	);
 }

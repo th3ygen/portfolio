@@ -51,8 +51,8 @@ export default function Footer() {
 				<Logo />
 			</div>
 			{<Contacts contacts={contacts} />}
-			<div className="flex gap-1 items-center">
-				<div className="">
+			<div className="flex flex-col lg:flex-row gap-1 items-center px-8 lg:px-0">
+				<div className="text-center">
 					Designed and developed by Muhd. Aidil Syazwan bin Hamdan 🗿
 				</div>
 				<div>All rights reserved &copy; {new Date().getFullYear()}</div>

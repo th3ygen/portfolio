@@ -6,10 +6,12 @@ import { useScroll, useMotionValueEvent } from "motion/react";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
 import Link from "next/link";
+import { motion } from "motion/react";
+import { useGlobalStore } from "@/stores/useGlobalStore";
 
 type TopbarProps = {
 	hideTreshold?: number;
-	className?: string
+	className?: string;
 };
 
 const navs: Array<{ label: string; target: string }> = [
@@ -67,7 +69,11 @@ const VerticalNav = ({ show }: { show: boolean }) => {
 				)}
 			>
 				{navItems()}
-				<Link href="/docs/cv.pdf" target="_blank" className="text-md py-4">
+				<Link
+					href="/docs/cv.pdf"
+					target="_blank"
+					className="text-md py-4"
+				>
 					CV
 				</Link>
 			</nav>
@@ -85,9 +91,13 @@ const VerticalNav = ({ show }: { show: boolean }) => {
 	);
 };
 
-const Topbar: React.FC<TopbarProps> = ({ hideTreshold = 800, className = "" }) => {
+const Topbar: React.FC<TopbarProps> = ({
+	hideTreshold = 800,
+	className = "",
+}) => {
 	const { scrollY } = useScroll();
 	const [isHidden, setIsHidden] = useState(false);
+	const { isHeroMounted } = useGlobalStore();
 
 	useMotionValueEvent(scrollY, "change", (latest) => {
 		setIsHidden(latest > hideTreshold);
@@ -118,7 +128,11 @@ const Topbar: React.FC<TopbarProps> = ({ hideTreshold = 800, className = "" }) =
 					isHidden && "-translate-y-12 opacity-0"
 				)}
 			></div>
-			<Logo />
+			{isHeroMounted && (
+				<motion.div layoutId="splash" className="flex">
+					<Logo />
+				</motion.div>
+			)}
 			<div className="flex gap-8 items-center">
 				<nav
 					className={cn(

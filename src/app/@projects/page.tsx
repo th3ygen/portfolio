@@ -446,7 +446,7 @@ const projects = [
 				category: "ui",
 			},
 		],
-		link: "fugenlegacy.com",
+		link: "https://fugenlegacy.com",
 		tags: ["pub", "automation", "cms", "seo", "static"],
 	},
 	{
@@ -778,7 +778,7 @@ const projects = [
 				category: "ui",
 			},
 		],
-		link: "fugentutor.com",
+		link: "https://fugentutor.com",
 		tags: [
 			"pub",
 			"real_time",
@@ -912,14 +912,12 @@ const projects = [
 export default async function Projects() {
 	const ProjectCards: React.FC = () => {
 		return projects.map((project, index) => (
-			<EnterTransition once key={"project-" + index}>
-				<ProjectCard project={project} />
-			</EnterTransition>
+			<ProjectCard key={"project-" + index} project={project} />
 		));
 	};
 
 	return (
-		<div className="relative w-full p-6 h-fit pb-20">
+		<div className="relative w-full p-6 h-full pb-20">
 			<EnterTransition className="delay-75" once>
 				<h1 className="text-4xl text-center md:text-left font-extrabold mb-6 uppercase dark:text-white">
 					<span className={"text-accent dark:text-primary"}>

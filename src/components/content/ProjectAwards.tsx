@@ -66,7 +66,7 @@ export function ProjectAwards({
 		});
 
 	return (
-		<div className="absolute top-0 right-0">
+		<div className="hidden lg:block absolute top-0 right-0 z-10">
 			<motion.div layoutId={`project-awards-${projectTitle}`} className="flex gap-2">
 				<Medals />
 			</motion.div>

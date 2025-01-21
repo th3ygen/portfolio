@@ -1,6 +1,5 @@
 "use client";
 
-import EnterTransition from "@/components/motion/EnterTransition";
 import { cn } from "@/lib/utils";
 import type { CareerSnapshot } from "career";
 import { AnimatePresence, motion } from "motion/react";
@@ -24,20 +23,15 @@ export default function CareerSnapshots({
 		setActiveIndex(index);
 	};
 
-	const Selector = () => {
-		return (
-			<div className="col-span-3">
-				{snapshots.map((snapshot, index) => (
-					<EnterTransition once key={index}>
-						<SnapshotSelector
-							{...snapshot}
-							onClick={() => handleSetActive(index)}
-							active={activeIndex === index}
-						/>
-					</EnterTransition>
-				))}
-			</div>
-		);
+	const selectors = () => {
+		return snapshots.map((snapshot, index) => (
+			<SnapshotSelector
+				key={"snapshot-selector-" + index}
+				{...snapshot}
+				onClick={() => handleSetActive(index)}
+				active={activeIndex === index}
+			/>
+		));
 	};
 
 	const Banner = () => {
@@ -55,10 +49,10 @@ export default function CareerSnapshots({
 
 	return (
 		<div className={cn("grid grid-cols-12", className)}>
-			<Selector />
+			<div className="hidden lg:block col-span-3">{selectors()}</div>
 			<AnimatePresence>
 				<motion.div
-					className="col-span-9 relative overflow-hidden"
+					className="col-span-12 lg:col-span-9 relative overflow-hidden"
 					layout
 				>
 					<SnapshotContent {...snapshots[activeIndex]} />

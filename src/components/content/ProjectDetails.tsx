@@ -5,10 +5,10 @@ import { useProjectStore } from "@/stores/useProjectStore";
 import { AnimatePresence, motion, useInView } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import { FaExternalLinkAlt, FaGlobe } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { MdOutlineClose } from "react-icons/md";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { ProjectAwards } from "./ProjectAwards";
 import ProjectTags from "./ProjectTags";
 import ProjectGallery from "./ProjectGallery";
@@ -34,7 +34,6 @@ function Container() {
 	const ref = useRef<HTMLDivElement>(null);
 	const { setIsViewingProject } = useGlobalStore();
 	const { project, setSelectedProject } = useProjectStore();
-	const [isMounted, setIsMounted] = useState(false);
 	const bottomRef = useRef<HTMLDivElement>(null);
 	const hasHitBottom = useInView(bottomRef, {
 		amount: "all",
@@ -60,10 +59,6 @@ function Container() {
 			document.removeEventListener("keydown", listener);
 		};
 	}, [setIsViewingProject, setSelectedProject]);
-
-	useEffect(() => {
-		setIsMounted(true);
-	}, []);
 
 	const handleClose = () => {
 		setIsViewingProject(false);
@@ -146,7 +141,13 @@ function Container() {
 
 				{/* image overlay */}
 				<div className="absolute left-0 top-0 w-full h-full z-0 opacity-15">
-					<Image alt={project.title} src={project.image} height={768} width={1024} className="w-full h-full object-cover" />
+					<Image
+						alt={project.title}
+						src={project.image}
+						height={768}
+						width={1024}
+						className="w-full h-full object-cover"
+					/>
 				</div>
 				<div className="absolute top-0 left-0 w-full h-[50px] bg-gradient-to-b from-black from-20% to-transparent z-10 pointer-events-none"></div>
 				<div className="absolute bottom-0 left-0 w-full h-[150px] bg-gradient-to-t from-black from-20% to-transparent z-10 pointer-events-none"></div>
@@ -176,8 +177,8 @@ function Container() {
 						</div>
 					</motion.div>
 
-					<div className="absolute top-[54px] right-10 lg:top-20 lg:right-20" >
-						<ProjectAwards isInView={isMounted} {...project} />
+					<div className="absolute top-[54px] right-10 lg:top-20 lg:right-20">
+						<ProjectAwards isInView={true} {...project} />
 					</div>
 
 					<motion.div
@@ -198,6 +199,22 @@ function Container() {
 							technologies
 						</div>
 					</div>
+
+					{project.link !== "#" && project.link !== "" && (
+						<div className="pb-4 flex items-center gap-2">
+							<span>
+								<FaGlobe size={18} />
+							</span>
+							<Link
+								href={project.link!}
+								target="_blank"
+								className="flex items-center gap-2 text-primary/60 hover:text-primary duration-150"
+							>
+								{project.title}
+								<FaExternalLinkAlt size={12} />
+							</Link>
+						</div>
+					)}
 
 					<div className="flex flex-col">
 						<div className="mb-2">

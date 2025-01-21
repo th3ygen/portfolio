@@ -82,7 +82,7 @@ export default function ProjectGallery({ gallery }: Project) {
 	return (
 		<div className="relative w-full h-full pr-20 grid grid-cols-2 gap-4">
 			
-			{/* <Fallback /> */}
+			<Fallback />
 			<Slider
 				className="gap-10 !h-full"
 				dots={false}

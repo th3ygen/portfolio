@@ -41,7 +41,7 @@ export default function AboutMe({ className = "", toolkit }: AboutMeProps) {
 		<div className={className}>
 			<div className="pb-10">
 				<EnterTransition once>
-					<h1 className="mb-4 uppercase dark:text-white">
+					<h1 className="text-center lg:text-left mb-4 uppercase dark:text-white">
 						<span className="font-extrabold text-5xl">
 							Meet the
 						</span>
@@ -70,7 +70,7 @@ export default function AboutMe({ className = "", toolkit }: AboutMeProps) {
 					</p>
 				</EnterTransition>
 			</div>
-			<div className="flex flex-col gap-10 w-fit">
+			<div className="flex flex-col gap-6 w-fit">
 				<EnterTransition className="delay-200" once>
 					Fueled by <span>coffee ☕</span> and powered by a strong
 					CPU, here’s my toolkit:
@@ -80,15 +80,12 @@ export default function AboutMe({ className = "", toolkit }: AboutMeProps) {
 					className="grid grid-cols-2 gap-8 delay-300"
 					once
 				>
-					<div className="flex flex-col gap-4">
+					<div className="grid grid-cols-2 w-full col-span-2 gap-4">
 						<Tools which="col1" />
-					</div>
-
-					<div className="flex flex-col gap-4">
 						<Tools which="col2" />
 					</div>
 
-					<div className="col-span-2">
+					<div className="hidden lg:block col-span-2">
 						<Button
 							variant="outline"
 							className="arsenal-toggle bg-secondary/20"
