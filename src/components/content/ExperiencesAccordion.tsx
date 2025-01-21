@@ -59,7 +59,10 @@ export default function ExperiencesAccordion({
 
 		// get duration of the job
 		const getDuration = (start: Date, end?: Date) => {
-			end = end || new Date();
+			if (!end) {
+				end = start;
+				start = new Date();
+			}
 
 			let years = end.getFullYear() - start.getFullYear();
 			let months = end.getMonth() - start.getMonth();
