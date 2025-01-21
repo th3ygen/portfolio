@@ -29,7 +29,7 @@ import Contacts from "./content/Contacts";
 import { useGlobalStore } from "@/stores/useGlobalStore";
 import Logo from "./Logo";
 
-const aldrich = Aldrich({ weight: "400" });
+const aldrich = Aldrich({ weight: "400", subsets: ["latin"] });
 
 const Pillar: React.FC<{ className?: string }> = ({ className = "" }) => {
 	const ref = useRef<HTMLDivElement>(null);

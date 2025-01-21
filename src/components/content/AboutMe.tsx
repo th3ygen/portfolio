@@ -8,7 +8,7 @@ import { Black_Ops_One } from "next/font/google";
 import Link from "next/link";
 import type { ToolKit } from "toolkit";
 
-const blackOps = Black_Ops_One({ weight: "400" });
+const blackOps = Black_Ops_One({ weight: "400", subsets: ["latin"] });
 
 type AboutMeProps = {
 	className?: string;
