@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Logo from "./Logo";
-import { useScroll, useMotionValueEvent } from "motion/react";
+import { useScroll, useMotionValueEvent, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
 import Link from "next/link";
@@ -128,11 +128,20 @@ const Topbar: React.FC<TopbarProps> = ({
 					isHidden && "-translate-y-12 opacity-0"
 				)}
 			></div>
-			{isHeroMounted && (
-				<motion.div layoutId="splash" className="flex">
-					<Logo />
-				</motion.div>
-			)}
+			<AnimatePresence>
+				{isHeroMounted && (
+					<motion.div
+						layoutId="splash"
+						className="flex"
+						transition={{
+							duration: 1,
+							ease: [0.785, 0.135, 0.15, 0.86],
+						}}
+					>
+						<Logo />
+					</motion.div>
+				)}
+			</AnimatePresence>
 			<div className="flex gap-8 items-center">
 				<nav
 					className={cn(

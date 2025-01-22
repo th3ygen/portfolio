@@ -135,8 +135,6 @@ export default function Hero() {
 		setExpYears(Math.floor(years));
 
 		setIsHeroMounted(true);
-
-		return () => {};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	const handleContact = () => {
@@ -147,8 +145,16 @@ export default function Hero() {
 		}
 	};
 
-	const Content = () => (
-		<>
+	return (
+		<div className="h-fit px-8 lg:pl-20 flex flex-col justify-center items-center md:items-start gap-2 pb-20 lg:pb-0">
+			<div
+				className={cn(
+					"flex lg:hidden pb-0 opacity-0 duration-500 delay-300 [transition-timing-function:cubic-bezier(0.785,0.135,0.150,0.860)]",
+					isHeroMounted && "opacity-100 pb-10"
+				)}
+			>
+				<Logo />
+			</div>
 			<BoxReveal className="mb-2 md:mb-8">
 				<div
 					className={cn(
@@ -179,7 +185,6 @@ export default function Hero() {
 					<span className=""> , if you prefer!</span>
 				</div>
 			</BoxReveal>
-
 			<BoxReveal className="mt-4 md:mt-8 flex flex-col text-center md:text-left">
 				<div className="text-2xl text-accent font-bold">
 					Full-stack Developer
@@ -188,7 +193,6 @@ export default function Hero() {
 					with {expYears}+ years of experience
 				</div>
 			</BoxReveal>
-
 			<BoxReveal className="mt-8">
 				<Button
 					size="lg"
@@ -198,27 +202,12 @@ export default function Hero() {
 					{"Let's"} work together!
 				</Button>
 			</BoxReveal>
-
 			<BoxReveal className="mt-4" delay="delay-100">
 				<div className="flex gap-2 items-center">
 					<Contacts contacts={contacts} />
 				</div>
 			</BoxReveal>
-			<Pillar className="hidden xl:block" />
-		</>
-	);
-
-	return (
-		<div className="h-fit px-8 lg:pl-20 flex flex-col justify-center items-center md:items-start gap-2 pb-20 lg:pb-0">
-			<div
-				className={cn(
-					"flex lg:hidden pb-0 opacity-0 duration-500 delay-300 [transition-timing-function:cubic-bezier(0.785,0.135,0.150,0.860)]",
-					isHeroMounted && "opacity-100 pb-10"
-				)}
-			>
-				<Logo />
-			</div>
-			<Content />
+			<Pillar className="hidden xl:block" />\
 		</div>
 	);
 }

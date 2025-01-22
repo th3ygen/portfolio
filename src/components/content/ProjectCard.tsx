@@ -11,6 +11,7 @@ import { useRef } from "react";
 import { ProjectAwards } from "./ProjectAwards";
 import ProjectTags from "./ProjectTags";
 import { motion } from "motion/react";
+import EnterTransition from "../motion/EnterTransition";
 
 type ProjectCardProps = {
 	className?: string;
@@ -43,7 +44,7 @@ export default function ProjectCard({
 				className
 			)}
 		>
-			<div className="relative w-full h-full grid grid-cols-1 lg:grid-cols-3">
+			<EnterTransition direction="right" once className="relative w-full h-full grid grid-cols-1 lg:grid-cols-3">
 				<ProjectAwards {...project} isInView={isInView} />
 				<div className="relative col-span-1 group h-[200px] w-full lg:h-full">
 					<div className="absolute top-0 left-0 flex justify-center items-center w-full h-full z-10 bg-black/10 dark:bg-black/40 group-hover:bg-black/20 duration-300"></div>
@@ -88,7 +89,7 @@ export default function ProjectCard({
 						</div>
 					</div>
 				</div>
-			</div>
+			</EnterTransition>
 		</motion.div>
 	);
 }

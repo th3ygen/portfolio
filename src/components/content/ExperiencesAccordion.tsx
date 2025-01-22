@@ -58,28 +58,45 @@ export default function ExperiencesAccordion({
 		};
 
 		// get duration of the job
-		const getDuration = (start: Date, end?: Date) => {
-			if (!end) {
-				end = start;
-				start = new Date();
+		// start: Date, end?: Date
+		// end: Date | undefined
+		function getDuration(start: Date, end?: Date): string {
+			const endDate = end || new Date();
+
+			if (endDate < start) {
+				throw new Error("End date cannot be earlier than start date.");
 			}
 
-			let years = end.getFullYear() - start.getFullYear();
-			let months = end.getMonth() - start.getMonth();
+			// Extract year and month from the start and end dates
+			const startYear = start.getFullYear();
+			const startMonth = start.getMonth(); // 0-based
+			const endYear = endDate.getFullYear();
+			const endMonth = endDate.getMonth(); // 0-based
 
+			// Calculate the difference in years and months
+			let years = endYear - startYear;
+			let months = endMonth - startMonth;
+
+			// Adjust for negative months
 			if (months < 0) {
+				years -= 1;
 				months += 12;
-				years = 0;
 			}
 
-			if (years === 0) {
-				return `${months} months`;
-			}
+			// Generate the output based on the calculated years and months
+			const yearPart =
+				years === 0 ? "" : years === 1 ? "a year" : `${years} years`;
 
-			return `${
-				years === 1 ? "a year" : years + " years"
-			} and ${months} months`;
-		};
+			const monthPart =
+				months === 0
+					? ""
+					: months === 1
+					? "a month"
+					: `${months} months`;
+
+			// Combine year and month parts with proper spacing
+			return [yearPart, monthPart].filter((part) => part).join(" ");
+		}
 
 		return (
 			<p className="text-sm">

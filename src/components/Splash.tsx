@@ -12,7 +12,7 @@ export default function Splash() {
 		<div
 			className={cn(
 				"fixed left-0 top-0 h-[100vh] w-full flex items-center justify-center pointer-events-none",
-				"bg-background z-[9999]",
+				"bg-background z-[9999] duration-1000",
 				isHeroMounted && "bg-background/0"
 			)}
 		>
@@ -21,14 +21,10 @@ export default function Splash() {
 					<motion.div
 						key="splash"
 						layoutId="splash"
-						className="flex"
-						initial={{
-							opacity: 1,
-							y: 0,
-						}}
-						exit={{
-							opacity: 0,
-							y: -20,
+						className="flex z-[9999]"
+						transition={{
+							duration: 1,
+							ease: [0.785, 0.135, 0.15, 0.86],
 						}}
 					>
 						<Logo />
