@@ -7,8 +7,8 @@ const contact = {
 		content: "+6011-3652-8296",
 	},
 	email: {
-		link: "mailto:i.dilsyaz1@gmail.com",
-		content: "i.dilsyaz1@gmail.com",
+		link: "mailto:aidil.syaz1.hamdan@gmail.com",
+		content: "aidil.syaz1.hamdan@gmail.com",
 	},
 	area: {
 		link: "https://maps.app.goo.gl/1rd5KwZcao7BAcit6",

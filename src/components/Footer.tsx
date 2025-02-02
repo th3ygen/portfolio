@@ -31,7 +31,7 @@ const contacts = [
 		icon: <FaInstagram />,
 	},
 	{
-		link: "mailto:i.dilsyaz1@gmail.com",
+		link: "mailto:aidil.syaz1.hamdan@gmail.com",
 		icon: <FaEnvelope />,
 	},
 	{

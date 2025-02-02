@@ -108,7 +108,7 @@ export const contacts = [
 		icon: <FaInstagram />,
 	},
 	{
-		link: "mailto:i.dilsyaz1@gmail.com",
+		link: "mailto:aidil.syaz1.hamdan@gmail.com",
 		icon: <FaEnvelope />,
 	},
 	{
@@ -207,7 +207,7 @@ export default function Hero() {
 					<Contacts contacts={contacts} />
 				</div>
 			</BoxReveal>
-			<Pillar className="hidden xl:block" />\
+			<Pillar className="hidden xl:block" />
 		</div>
 	);
 }
