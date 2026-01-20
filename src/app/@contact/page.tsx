@@ -11,8 +11,8 @@ const contact = {
 		content: "aidil.syaz1.hamdan@gmail.com",
 	},
 	area: {
-		link: "https://maps.app.goo.gl/1rd5KwZcao7BAcit6",
-		content: "Sungai Penchala, Kuala Lumpur, Malaysia",
+		link: "https://maps.app.goo.gl/ZbhD9hVvHUBW3d3E6",
+		content: "Kuala Lumpur, Malaysia",
 	},
 };
 

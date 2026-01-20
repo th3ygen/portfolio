@@ -5,6 +5,18 @@ import ExperiencesAccordion from "@/components/content/ExperiencesAccordion";
 
 const career = [
 	{
+		role: "Mobile App. Developer",
+		company: "Arki Finance",
+		address: "Singapore",
+		start: new Date("2025-05-04"),
+		banner: "/assets/arki-banner.jpg",
+		logo: "/assets/arki-logo.png",
+		bullets: [
+			"Spearheaded the development of a mobile application for digital financial services using Flutter for native performance and cross platform capability.",
+			"Collaborated closely with product designers to translate the company's vision into reality.",
+		],
+	},
+	{
 		role: "Full-stack developer / Founder",
 		company: "Ascenity Solutions",
 		address: "UMPSA, Pekan, Pahang",

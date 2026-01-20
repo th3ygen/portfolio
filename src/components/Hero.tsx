@@ -46,7 +46,7 @@ const Pillar: React.FC<{ className?: string }> = ({ className = "" }) => {
 	const scrollTransform = useTransform(
 		smoothScroll,
 		[-20000, 20000],
-		[0.2, 2]
+		[0.2, 2],
 	);
 
 	useMotionValueEvent(scrollTransform, "change", (value) => {
@@ -59,7 +59,7 @@ const Pillar: React.FC<{ className?: string }> = ({ className = "" }) => {
 				key={index}
 				className={cn(
 					`absolute left-0 w-full bg-primary duration-1000 delay-300 -translate-y-20`,
-					isInView && "translate-y-0"
+					isInView && "translate-y-0",
 				)}
 				style={{
 					height: `${10 / (index + 1)}px`,
@@ -80,7 +80,7 @@ const Pillar: React.FC<{ className?: string }> = ({ className = "" }) => {
 				className={cn(
 					"absolute -top-[100%] left-0 w-full h-[150vh] -translate-y-[50vh] duration-700 delay-75 ease-in-out",
 					className,
-					isInView && "top-[0%]"
+					isInView && "top-[0%]",
 				)}
 			>
 				<div className="relative w-full h-[calc(100%_-_200px)] bg-primary"></div>
@@ -134,7 +134,10 @@ export default function Hero() {
 
 		setExpYears(Math.floor(years));
 
-		setIsHeroMounted(true);
+		setTimeout(() => {
+			setIsHeroMounted(true);
+		}, 750);
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	const handleContact = () => {
@@ -150,7 +153,7 @@ export default function Hero() {
 			<div
 				className={cn(
 					"flex lg:hidden pb-0 opacity-0 duration-500 delay-300 [transition-timing-function:cubic-bezier(0.785,0.135,0.150,0.860)]",
-					isHeroMounted && "opacity-100 pb-10"
+					isHeroMounted && "opacity-100 pb-10",
 				)}
 			>
 				<Logo />
@@ -159,7 +162,7 @@ export default function Hero() {
 				<div
 					className={cn(
 						"text-2xl md:text-4xl text-center md:text-left font-bold text-accent w-full",
-						aldrich.className
+						aldrich.className,
 					)}
 				>
 					Hello world! I{"'"}m...
@@ -171,7 +174,7 @@ export default function Hero() {
 				</div>
 			</BoxReveal>
 			<BoxReveal delay="delay-300">
-				<span className="text-5xl md:text-7xl font-bold [letter-spacing:7px] md:[letter-spacing:12.7px]">
+				<span className="text-5xl md:text-7xl font-bold [letter-spacing:6px] md:[letter-spacing:10px]">
 					SYAZWAN
 				</span>
 			</BoxReveal>

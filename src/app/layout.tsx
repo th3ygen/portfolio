@@ -63,10 +63,16 @@ export default function RootLayout({
 								>
 									{projects}
 								</section>
-								<section id="contact" className="pt-32 lg:mr-52">
+								<section
+									id="contact"
+									className="pt-32 lg:mr-52"
+								>
 									{contact}
 								</section>
-								 <section id="footer" className="lg:mr-52 lg:pt-20">
+								<section
+									id="footer"
+									className="lg:mr-52 lg:pt-20"
+								>
 									<Footer />
 								</section>
 							</div>
